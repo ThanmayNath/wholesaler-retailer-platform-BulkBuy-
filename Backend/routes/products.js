@@ -21,12 +21,13 @@ router.get("/", async (req, res) => {
     const data = await db.query(query);
     const result = data.rows;
     return res.send(result).status(200);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   const values = [
-    req.body.product_id,
     req.body.wholesaler_id,
     req.body.category_id,
     req.body.product_name,
@@ -36,8 +37,8 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     req.file.path,
   ];
   const query = `INSERT INTO public.products(
-        product_id, wholesaler_id, category_id, product_name, product_description, product_price, product_quantity, product_image_url)
-        VALUES ($1, $2, $3, $4, $5 , $6, $7, $8)`;
+        wholesaler_id, category_id, product_name, product_description, product_price, product_quantity, product_image_url)
+        VALUES ($1, $2, $3, $4, $5 , $6, $7)`;
   try {
     await db.query(query, values);
     res.status(200).json({ mesage: "Uploaded the product successfully." });
