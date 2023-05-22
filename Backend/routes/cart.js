@@ -34,4 +34,33 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  const values = [req.body.quantity, req.params.id];
+  const query = `UPDATE public.cart
+  SET quantity = $1
+  WHERE cart_id = $2`;
+  try {
+    await db.query(query, values);
+    res.status(200).json({ mesage: "Updated quantity successfully." });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred while Updated quantity" });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const values = [req.params.id];
+  const query = `DELETE FROM public.cart
+	WHERE cart_id = $1;`;
+  try {
+    await db.query(query, values);
+    res.status(200).json({ mesage: "Deleted from cart successfully." });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting product from cart" });
+  }
+});
+
 export default router;
