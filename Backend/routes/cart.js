@@ -11,7 +11,7 @@ router.get("/:id", async (req, res) => {
   try {
     const data = await db.query(query, values);
     const result = data.rows;
-    console.log(result);
+    //console.log(result);
     return res.send(result).status(200);
   } catch (error) {
     console.log(error);
@@ -31,6 +31,58 @@ router.post("/add", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while adding product to cart" });
+  }
+});
+
+router.post("/proced/:id", async (req, res) => {
+  try {
+    const retailer_id = req.params.id;
+    const characters =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let order_id = "#";
+    for (let i = 0; i < 10; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      order_id += characters[randomIndex];
+    }
+    const date = new Date();
+    const order_date = date.toISOString().split("T")[0];
+    const order_status = "pending";
+    const values = [order_id, retailer_id, order_date, order_status];
+    const query = `SELECT cart.product_id, cart.quantity, products.product_price
+    FROM public.cart 
+    INNER JOIN public.products ON cart.product_id = products.product_id
+    WHERE cart.retailer_id = $1`;
+    const cartDetails = await db.query(query, [retailer_id]);
+    const cartItems = cartDetails.rows;
+    console.log(cartItems);
+    const orders = `
+  INSERT INTO orders (order_id, retailer_id, order_date, order_status)
+  VALUES ($1, $2, $3,$4)`;
+    await db.query(orders, values);
+    for (const cartItem of cartItems) {
+      const { product_id, quantity } = cartItem;
+      const unit_price = cartItem.product_price;
+      const total_price = unit_price * quantity;
+      console.log(product_id, quantity, unit_price, total_price);
+      const orderItems = `INSERT INTO public.order_items(
+        order_id, product_id, quantity, unit_price, total_price)
+        VALUES ($1, $2, $3, $4, $5)`;
+      await db.query(orderItems, [
+        order_id,
+        product_id,
+        quantity,
+        unit_price,
+        total_price,
+      ]);
+    }
+    res
+      .status(200)
+      .json({
+        mesage: "Transaction to order itemns is successfully completed.",
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred while Buying products" });
   }
 });
 
