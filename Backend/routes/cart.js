@@ -46,8 +46,8 @@ router.post("/proced/:id", async (req, res) => {
     }
     const date = new Date();
     const order_date = date.toISOString().split("T")[0];
-    const order_status = "pending";
-    const values = [order_id, retailer_id, order_date, order_status];
+    const status = "pending";
+    const values = [order_id, retailer_id, order_date, status];
     const query = `SELECT cart.product_id, cart.quantity, products.product_price
     FROM public.cart 
     INNER JOIN public.products ON cart.product_id = products.product_id
@@ -59,10 +59,12 @@ router.post("/proced/:id", async (req, res) => {
   INSERT INTO orders (order_id, retailer_id, order_date, order_status)
   VALUES ($1, $2, $3,$4)`;
     await db.query(orders, values);
+    let total_amount = 0;
     for (const cartItem of cartItems) {
       const { product_id, quantity } = cartItem;
       const unit_price = cartItem.product_price;
       const total_price = unit_price * quantity;
+      total_amount = total_amount + total_price;
       console.log(product_id, quantity, unit_price, total_price);
       const orderItems = `INSERT INTO public.order_items(
         order_id, product_id, quantity, unit_price, total_price)
@@ -75,11 +77,13 @@ router.post("/proced/:id", async (req, res) => {
         total_price,
       ]);
     }
-    res
-      .status(200)
-      .json({
-        mesage: "Transaction to order itemns is successfully completed.",
-      });
+    const updateTotalamount = `UPDATE public.orders
+    SET total_amount = $1, payment_status=$2
+    WHERE order_id = $3`;
+    await db.query(updateTotalamount, [total_amount, status, order_id]);
+    res.status(200).json({
+      mesage: "Transaction to order itemns is successfully completed.",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "An error occurred while Buying products" });
