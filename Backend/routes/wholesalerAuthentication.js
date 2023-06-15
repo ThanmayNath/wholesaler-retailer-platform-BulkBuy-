@@ -5,11 +5,16 @@ import db from "../db/config.js";
 
 router.post("/reg", async (req, res) => {
   try {
-    const wholesaler_name = req.body.wholesaler_name;
     const wholesaler_email = req.body.wholesaler_email;
+    // Check if wholesaler exists
+    const checkQuery = `SELECT * FROM public.wholesalers WHERE wholesaler_email=$1`;
+    const checkResult = await db.query(checkQuery, [wholesaler_email]);
+    if (checkResult.rows.length > 0) {
+      return res.status(409).json({ error: "wholesaler already exists." });
+    }
+    // Create new wholesaler account
+
     const wholesaler_password = req.body.wholesaler_password;
-    const wholesaler_address = req.body.wholesaler_address;
-    const wholesaler_city = req.body.wholesaler_city;
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(wholesaler_password, salt);
 
@@ -19,11 +24,11 @@ router.post("/reg", async (req, res) => {
 `;
 
     const values = [
-      wholesaler_name,
+      req.body.wholesaler_name,
       wholesaler_email,
       hashedPassword,
-      wholesaler_address,
-      wholesaler_city,
+      req.body.wholesaler_address,
+      req.body.wholesaler_city,
     ];
 
     await db.query(query, values);

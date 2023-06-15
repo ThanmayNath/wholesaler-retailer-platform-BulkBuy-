@@ -5,22 +5,34 @@ import db from "../db/config.js";
 
 router.post("/reg", async (req, res) => {
   try {
+    const retailer_email = req.body.retailer_email;
+
+    // Check if retailer exists
+    const checkQuery = `
+      SELECT * FROM public.retailers WHERE retailer_email = $1
+    `;
+    const checkResult = await db.query(checkQuery, [retailer_email]);
+
+    if (checkResult.rows.length > 0) {
+      return res.status(409).json({ error: "Retailer already exists." });
+    }
+    // Create new retailer account
     const retailer_password = req.body.retailer_password;
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(retailer_password, salt);
     const values = [
       req.body.retailer_name,
-      req.body.retailer_email,
+      retailer_email,
       hashedPassword,
       req.body.retailer_address,
       req.body.retailer_city,
     ];
-    const query = `
-    INSERT INTO public.retailers (retailer_name, retailer_email, retailer_password, retailer_address, retailer_city)
-    VALUES ($1, $2, $3, $4, $5)
+    const insertQuery = `
+      INSERT INTO public.retailers (retailer_name, retailer_email, retailer_password, retailer_address, retailer_city)
+      VALUES ($1, $2, $3, $4, $5)
     `;
-    await db.query(query, values);
-    res.status(200).json({ message: "retailer registered successfully." });
+    await db.query(insertQuery, values);
+    res.status(200).json({ message: "Retailer registered successfully." });
   } catch (error) {
     console.log(error);
     res
