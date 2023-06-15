@@ -1,0 +1,134 @@
+.login_div {
+  min-height: 70vh;
+  padding: 5rem;
+  background-color: #401aac;
+  position: relative;
+}
+.login_form_div {
+  height: 91vh;
+  margin-top: 0rem;
+  width: 1000px;
+  background-color: white;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  border-radius: 0px 66px 66px 0px;
+  /* border: 1px solid red; */
+}
+.login_image .login_img {
+  position: absolute;
+  left: 80%;
+  top: 5%;
+  overflow: hidden;
+  animation: in_img 0.6s ease;
+}
+.login_form{
+  height: 500px;
+  width: 600px;
+  position: absolute;
+  top: 10%;
+  right: 20%;
+}
+
+.login_header {
+  font-size: 35px;
+  color: #110dbc;
+  position: relative;
+}
+.login_header::before {
+  height: 4px;
+  width: 10%;
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 1%;
+  background-color: #110dbc;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+.login_header:hover::before {
+  width: 17%;
+}
+.user_details {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+.password_input {
+  position: relative;
+  margin-bottom: 20px;
+}
+.eye_icon,
+.eye_slash_icon {
+  font-size: 20px;
+  position: absolute;
+  z-index: 9999;
+  right: 0rem;
+  cursor: pointer;
+  top: 0.68rem;
+}
+.input_tag {
+  width: 100%;
+  padding: 10px 9px;
+  display: block;
+  border: none;
+  outline: none;
+  background-color: #00A4FF;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-top: 10px;
+}
+.login_button{
+  padding: 13px 20px;
+  margin: 22px -9px 23px 69px;
+  background-color: #446dff;
+  border-radius: 42px;
+  border: none;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sign_up_here {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+  justify-content: center;
+  margin-right: 80px;
+}
+.sign_up_here a {
+  text-decoration: none;
+  color: #000000;
+}
+.sign_up_here a:hover{
+  color: blue;
+}
+.sign_up_here a::before {
+  height: 4px;
+  width: 7%;
+  content: "";
+  position: absolute;
+  top: 95%;
+  left: 48.5%;
+  background-color: #110dbc;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+.sign_up_here a:hover::before {
+  width: 13%;
+
+}
+
+@keyframes in_img {
+  0%{
+    transform: translateX(80px);
+  }
+  100%{
+   transform: translateX(0px);
+  }
+}
