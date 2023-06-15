@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import React from "react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
@@ -35,17 +37,26 @@ const Header = () => {
               <FaSearch className="search_icon" onClick={clicked} />
             </div>
           </form>
-          <div className="account_info">
-            <select className="account">
-              <option value="1" selected>
-                Account
-              </option>
-              <option value="2">Info</option>
-            </select>
-          </div>
-          <div className="cart_div">
-            <FaShoppingCart />
-            <p>Cart</p>
+          <div className="side_div">
+            <div className="account_info">
+              <select className="account">
+                <option value="1" selected>
+                  Account
+                </option>
+                <option value="2">Login</option>
+                <option value="3">Register</option>
+              </select>
+            </div>
+            <div className="cart_div">
+              <FaShoppingCart />
+              <p>Cart</p>
+            </div>
+            <div className="login">
+              <Link href="./login">Login</Link>
+            </div>
+            <div className="register">
+              <Link href="./register">Signup</Link>
+            </div>
           </div>
         </div>
       </div>

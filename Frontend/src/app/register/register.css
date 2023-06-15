@@ -1,0 +1,122 @@
+.signup_div {
+  min-height: 70vh;
+  padding: 5rem;
+  background-color: #401aac;
+  position: relative;
+}
+.signup_form_div {
+  height: 91vh;
+  margin-top: 0rem;
+  width: 1000px;
+  background-color: white;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  border-radius: 66px 0px 0px 66px;
+}
+.register_image {
+  position: relative;
+  top: 15%;
+  right: 50%;
+  animation: in_image 0.5s ease-in;
+}
+.signup_form {
+  height: 500px;
+  width: 600px;
+  position: absolute;
+  top: 10%;
+  right: 20%;
+}
+.register_header {
+  font-size: 35px;
+  color: #110dbc;
+  position: relative;
+}
+.register_header::before {
+  height: 4px;
+  width: 10%;
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 1%;
+  background-color: #110dbc;
+  transition: all 0.3s ease;
+}
+.register_header:hover::before {
+  width: 17%;
+}
+.user_details {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+.input_form {
+  max-width: calc(100% / 2-25px);
+  width: 45%;
+}
+.input_form input {
+  height: 35px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: #00a4ff;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-top: 15px;
+  color: white;
+}
+.login_button {
+  padding: 12px 14px;
+  margin: 33px -24px -15px 103px;
+  background-color: #446dff;
+  border-radius: 23px;
+  border: none;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.already_acc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+}
+.already_acc a {
+  text-decoration: none;
+  color: #000000;
+}
+.already_acc a::after {
+  height: 4px;
+  width: 7%;
+  content: "";
+  position: absolute;
+  top: 84%;
+  left: 61.5%;
+  background-color: #110dbc;
+  transition: all 0.3s ease;
+}
+.already_acc a:hover::after {
+  width: 13%;
+}
+.eye,
+.eye_slash {
+  font-size: 20px;
+  position: absolute;
+  z-index: 9;
+  right: 20.6rem;
+  cursor: pointer;
+  bottom: 14.8rem;
+}
+@keyframes in_image {
+   0%{
+     transform: translateX(-80px);
+   }
+   100%{
+    transform: translateX(0px);
+   }
+}

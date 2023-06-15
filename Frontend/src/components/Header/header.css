@@ -58,9 +58,10 @@
 
 .searchbar_div {
   position: relative;
+  left: 20%;
 }
 .account {
-  background: transparent;
+  background: none;
   border: none;
   outline: none;
   width: 100px;
@@ -68,6 +69,39 @@
   color: white;
   font-family: "Ubuntu", sans-serif;
 }
+.account option {
+  color: red;
+  margin: 5px;
+}
+.side_div {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.login a {
+  /* border:1px solid red; */
+  margin-left: 50px;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background-color: rgb(49, 187, 21);
+  font-size: 16px;
+  border: none;
+  text-decoration: none;
+}
+.register a {
+  border: 2px solid red;
+  color: rgb(34, 230, 31);
+  border-radius: 10px;
+  font-size: 16px;
+  border: none;
+  text-decoration: none;
+}
+/* .login a,
+.register a {
+
+} */
+
 .cart_div {
   color: white;
   font-size: 16px;

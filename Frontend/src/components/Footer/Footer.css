@@ -17,6 +17,9 @@ ul{
     rgb(63, 53, 181) 100%
   );
     padding: 70px 0;
+	position: sticky;
+	top: 0%;
+	z-index: 10;
 }
 .footer-col{
    width: 25%;
