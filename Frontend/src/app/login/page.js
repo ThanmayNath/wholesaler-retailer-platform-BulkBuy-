@@ -4,8 +4,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import "./login.css";
+import axios from "axios";
 
-const page = () => {
+const login = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -13,6 +14,21 @@ const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = async (e, endpoint) => {
+    e.preventDefault();
+    const data = {
+      email: email,
+      password: password,
+    };
+    try {
+      const res = await axios.post(endpoint, data);
+      console.log(res.data);
+      console.log(res.status); // Handle the response as needed
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -72,17 +88,21 @@ const page = () => {
                 </div>
                 <button
                   type="submit"
-                  // onClick={handleUserLogin}
                   className="login_button"
+                  onClick={(e) =>
+                    handleLogin(e, "http://localhost:8800/retailer/login")
+                  }
                 >
                   Retiler Login
                 </button>
                 <button
                   type="submit"
-                  // onClick={handleOwnerLogin}
                   className="login_button"
+                  onClick={(e) =>
+                    handleLogin(e, "http://localhost:8800/wholesaler/login")
+                  }
                 >
-                Wholeseller Login
+                  Wholesaler Login
                 </button>
               </form>
             </div>
@@ -97,4 +117,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default login;

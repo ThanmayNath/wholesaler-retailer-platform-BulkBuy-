@@ -5,7 +5,7 @@ import db from "../db/config.js";
 
 router.post("/reg", async (req, res) => {
   try {
-    const wholesaler_email = req.body.wholesaler_email;
+    const wholesaler_email = req.body.email;
     // Check if wholesaler exists
     const checkQuery = `SELECT * FROM public.wholesalers WHERE wholesaler_email=$1`;
     const checkResult = await db.query(checkQuery, [wholesaler_email]);
@@ -14,21 +14,20 @@ router.post("/reg", async (req, res) => {
     }
     // Create new wholesaler account
 
-    const wholesaler_password = req.body.wholesaler_password;
+    const wholesaler_password = req.body.password;
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(wholesaler_password, salt);
 
     const query = `
-  INSERT INTO public.wholesalers (wholesaler_name, wholesaler_email, wholesaler_password, wholesaler_address, wholesaler_city)
-  VALUES ($1, $2, $3, $4, $5)
+  INSERT INTO public.wholesalers (wholesaler_name, wholesaler_email, wholesaler_password, wholesaler_number)
+  VALUES ($1, $2, $3, $4)
 `;
 
     const values = [
-      req.body.wholesaler_name,
+      req.body.name,
       wholesaler_email,
       hashedPassword,
-      req.body.wholesaler_address,
-      req.body.wholesaler_city,
+      req.body.number,
     ];
 
     await db.query(query, values);
@@ -43,8 +42,8 @@ router.post("/reg", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const wholesaler_email = req.body.wholesaler_email;
-  const wholesaler_password = req.body.wholesaler_password;
+  const wholesaler_email = req.body.email;
+  const wholesaler_password = req.body.password;
 
   try {
     const query = `

@@ -1,12 +1,12 @@
 import "./globals.css";
 import Header from "@src/components/Header/Header";
 import Footer from "@src/components/Footer/Footer";
-import { Poppins } from 'next/font/google'
+import { Poppins } from "next/font/google";
 
 const montserrat = Poppins({
-  weight: '400',
-  subsets: ['latin'],
-})
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "BulKBuy",
