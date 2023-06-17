@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const query = `
-      SELECT wholesaler_password,wholesaler_id
+      SELECT wholesaler_password,wholesaler_id,wholesaler_name
       FROM public.wholesalers
       WHERE wholesaler_email = $1
     `;
@@ -63,9 +63,13 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(wholesaler_password, storedPassword);
 
     if (isMatch) {
-      const ID = result.rows[0].wholesaler_id;
       // Passwords match, authentication successful
-      res.status(200).json({ message: "Authentication successful", id: ID });
+      res.status(200).json({
+        message: "wholesaler Authentication successful",
+        user: "wholesaler",
+        id: result.rows[0].wholesaler_id,
+        name: result.rows[0].wholesaler_name,
+      });
     } else {
       // Passwords don't match, authentication failed
       res.status(401).json({ error: "Invalid credentials" });

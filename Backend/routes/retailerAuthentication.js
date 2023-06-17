@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const query = `
-      SELECT retailer_password, retailer_id
+      SELECT retailer_password,retailer_id,retailer_name
       FROM public.retailers
       WHERE retailer_email = $1
     `;
@@ -62,11 +62,13 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(retailer_password, storedPassword);
 
     if (isMatch) {
-      const ID = result.rows[0].retailer_id;
       // Passwords match, authentication successful
-      res
-        .status(200)
-        .json({ message: "Retailer authentication successful", id: ID });
+      res.status(200).json({
+        message: "Retailer authentication successful",
+        user: "retailer",
+        id: result.rows[0].retailer_id,
+        name: result.rows[0].retailer_name,
+      });
     } else {
       // Passwords don't match, authentication failed
       res.status(401).json({ error: "Invalid retailer credentials" });

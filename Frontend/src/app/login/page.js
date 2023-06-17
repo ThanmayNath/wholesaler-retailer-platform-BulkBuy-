@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import "./login.css";
 import axios from "axios";
+//import { authContext } from "../contexts/auth";
+//import { AuthProvider } from "../contexts/auth";
 
 const login = () => {
   const togglePasswordVisibility = () => {
@@ -18,13 +20,15 @@ const login = () => {
   const handleLogin = async (e, endpoint) => {
     e.preventDefault();
     const data = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
     try {
       const res = await axios.post(endpoint, data);
-      console.log(res.data);
-      console.log(res.status); // Handle the response as needed
+      const { user, id, name } = res.data;
+      localStorage.setItem("user", user);
+      localStorage.setItem("userId", id);
+      localStorage.setItem("userName", name);
     } catch (error) {
       console.error(error);
     }
