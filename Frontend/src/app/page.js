@@ -1,13 +1,12 @@
 import Card from "@src/components/Card";
+import Product_card from "@src/components/Product_card";
 import Hero from "@src/components/hero";
-import Discount from "@src/components/Discount";
-
 const page = () => {
   return (
     <>
       <Hero />
       <Card />
-      <Discount/>
+      <Product_card/>
     </>
   );
 };

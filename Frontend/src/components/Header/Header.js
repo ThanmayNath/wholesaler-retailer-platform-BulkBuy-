@@ -20,10 +20,8 @@ const Header = () => {
           </div>
           <form action="">
             <div className="searchbar_div">
-              <select className="product_select">
-                <option value="1" selected>
-                  All Products
-                </option>
+              <select className="product_select" defaultValue="1">
+                <option value="1">All Products</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
               </select>
@@ -39,10 +37,8 @@ const Header = () => {
           </form>
           <div className="side_div">
             <div className="account_info">
-              <select className="account">
-                <option value="1" selected>
-                  Account
-                </option>
+              <select className="account" defaultValue="1">
+                <option value="1">Account</option>
                 <option value="2">Login</option>
                 <option value="3">Register</option>
               </select>
