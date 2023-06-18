@@ -1,41 +1,46 @@
 const ProductsData = [
-    {
-      id: 1,
-      title: "Fashion",
-      description: "Trendy styles for the modern fashionista.",
-      imageurl: "/shoe.png"
-    },
-    {
-      id: 2,
-      title: "Electronics",
-      description: "Cutting-edge technology at your fingertips.",
-      imageurl: "/mob.png"
-    },
-    {
-      id: 3,
-      title: "Sports",
-      description: "Immerse yourself in captivating stories and knowledge.",
-      imageurl: "/shoe.png"
-    },
-    {
-      id: 4,
-      title: "Home and Decor",
-      description: "Create a cozy and stylish living space.",
-      imageurl: "/shoe.png"
-    },
-    {
-      id: 5,
-      title: "Health and Wellness",
-      description: "Nurture your body and mind with top-quality products.",
-      imageurl: "/shoe.png"
-    },
-    {
-      id: 6,
-      title: "Toys and Games",
-      description: "Unleash your inner child and embrace playfulness.",
-      imageurl: "/shoe.png"
-    }
-  ];
-  
-  export default ProductsData;
-  
+  {
+    id: 1,
+    title: "Beverages",
+    description: "Quench your thirst with a wide range of refreshing drinks.",
+    imageurl: "/beverages.png"
+  },
+  {
+    id: 2,
+    title: "Food and Grocery",
+    description: "Find quality ingredients and essential items for your pantry.",
+    imageurl: "/food.png"
+  },
+  {
+    id: 3,
+    title: "Electronics",
+    description: "Cutting-edge technology at your fingertips.",
+    imageurl: "/mob.png"
+  },
+  {
+    id: 4,
+    title: "Stationary",
+    description: "Discover a variety of writing tools and office supplies.",
+    imageurl: "/stationary.jpg"
+  },
+  {
+    id: 5,
+    title: "Cosmetics",
+    description: "Enhance your natural beauty with top-quality products.",
+    imageurl: "/cosmetics.png"
+  },
+  {
+    id: 6,
+    title: "Kitchenware",
+    description: "Equip your kitchen with high-quality tools and accessories.",
+    imageurl: "/kitchenware.png"
+  },
+  {
+    id: 7,
+    title: "Automotive",
+    description: "Explore automotive products and accessories for your vehicle.",
+    imageurl: "/automotive.jpg"
+  }
+];
+
+export default ProductsData;

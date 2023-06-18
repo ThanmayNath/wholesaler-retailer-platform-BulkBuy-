@@ -4,10 +4,10 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
-import cardData from "../app/Data.js";
+import cardData from "@src/app/utils/Products";
 import Image from "next/image";
 import "swiper/swiper-bundle.min.css";
-import '../app/page.css'
+import "../app/page.css";
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -20,9 +20,9 @@ const Card = () => {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
-      loop: true, 
+      loop: true,
       autoplay: {
-        delay: 3000, 
+        delay: 3000,
         disableOnInteraction: false,
       },
     });
@@ -38,14 +38,15 @@ const Card = () => {
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
-           loop: true, 
-
+        }}
+        loop={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
         }}
       >
-        
         {cardData.map((card, index) => (
           <SwiperSlide key={index} className="card">
-
             <div className="card_maintext">
               <h2>{card.title}</h2>
             </div>
@@ -57,7 +58,7 @@ const Card = () => {
               <Image
                 src={card.imageurl}
                 width={170}
-                height={130}
+                height={120}
                 alt="Card Image"
                 className="img"
               />

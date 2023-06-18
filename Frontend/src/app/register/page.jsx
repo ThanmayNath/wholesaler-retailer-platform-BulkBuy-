@@ -1,12 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./register.css";
 import Link from "next/link";
 import Image from "next/image";
-import axios from "axios";
-
-const Register = () => {
+const login = () => {
+  // State variables
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,35 +16,19 @@ const Register = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleSignup = async (e, endpoint) => {
-    e.preventDefault();
-    const data = {
-      name: name,
-      email: email,
-      password: password,
-      number: phone,
-    };
-    try {
-      const res = await axios.post(endpoint, data);
-      console.log(res.error);
-      console.log(res.status); // Handle the response as needed
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <>
       <div className="signup_div">
         <div className="signup_form_div">
+
           <div className="register_image">
-            <Image src="/register.png" width={700} height={400} />
+            <Image src="/register.png" width={700} height={400}></Image>
           </div>
           <div className="signup_form">
             <h2 className="register_header">Sign Up</h2>
             <form action="">
-              <div className="user_details">
-                <div className="input_form">
+              <div class="user_details">
+                <div class="input_form">
                   <label htmlFor="text">Name</label>
                   <input
                     type="text"
@@ -56,7 +39,7 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div className="input_form">
+                <div class="input_form">
                   <label htmlFor="email">Email</label>
                   <input
                     type="email"
@@ -67,7 +50,7 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div className="input_form">
+                <div class="input_form">
                   <label htmlFor="password">Password</label>
                   <input
                     type={showPassword ? "text" : "password"}
@@ -78,7 +61,10 @@ const Register = () => {
                     required
                   />
                   {showPassword ? (
-                    <FaEye className="eye" onClick={togglePasswordVisibility} />
+                    <FaEye
+                      className="eye"
+                      onClick={togglePasswordVisibility}
+                    />
                   ) : (
                     <FaEyeSlash
                       className="eye_slash"
@@ -86,7 +72,7 @@ const Register = () => {
                     />
                   )}
                 </div>
-                <div className="input_form">
+                <div class="input_form">
                   <label htmlFor="number">Phone no</label>
                   <input
                     type="number"
@@ -100,26 +86,22 @@ const Register = () => {
               </div>
               <button
                 type="submit"
+                // onClick={handleUserLogin}
                 className="login_button"
-                onClick={(e) =>
-                  handleSignup(e, "http://localhost:8800/retailer/reg")
-                }
               >
                 Retailer Signup
               </button>
               <button
                 type="submit"
+                // onClick={handleOwnerLogin}
                 className="login_button"
-                onClick={(e) =>
-                  handleSignup(e, "http://localhost:8800/wholesaler/reg")
-                }
               >
-                Wholesaler Signup
+                Wholeseller SignUp
               </button>
             </form>
 
             <div className="already_acc">
-              <p>Already have an account?</p>
+              <p>Already have an account ?</p>
               <Link href="./login">Login here</Link>
             </div>
           </div>
@@ -129,4 +111,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default login;

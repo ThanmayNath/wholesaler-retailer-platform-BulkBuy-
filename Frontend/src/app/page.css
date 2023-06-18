@@ -99,29 +99,31 @@
   max-width: 1300px;
   overflow-x: scroll;
   transition: 1s all ease;
-  overflow-x: hidden;
+  overflow-x: hidden; 
 }
 
 .card {
   height: 100%;
-  padding: 0px 20px;
   background-color: #f4f4fb;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
   margin-right: 10px;
 }
+.card:hover{
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
 
 .card_maintext {
   font-size: 19px;
   font-weight: 700;
   color: #1e1b47;
-  padding: 0px 10px;
+  padding: 0px 30px;
 }
 .card_text {
   width: 60%;
   color: #a6a5af;
-  padding: 35px 10px;
+  padding: 35px 30px;
 }
 .card_button {
   padding: 19px 20px;
@@ -131,6 +133,7 @@
   border: none;
   font-weight: 800;
   margin-top: 30px;
+  margin-left: 30px;
 }
 .card_button a {
   text-decoration: none;
@@ -144,7 +147,7 @@
   z-index: 1;
 }
 .card_image .img {
-  transform: rotateZ(25deg);
+  /* transform: rotateZ(25deg); */
 }
 .heading{
   display: flex;
