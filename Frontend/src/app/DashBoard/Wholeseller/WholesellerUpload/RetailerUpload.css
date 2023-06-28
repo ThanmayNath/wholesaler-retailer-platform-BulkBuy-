@@ -1,0 +1,101 @@
+.retailer_upload {
+  height: 90vh;
+  /* border: 2px solid red; */
+  background-color: #0A6EBD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.retailer_upload h2 {
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+  margin: 15px;
+}
+.retailer_card_main {
+  width: 70%;
+  height: 80%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.retailer_card {
+  width: 800px;
+  height: 450px;
+  margin: 0 auto;
+  /* border: 1px solid rgb(0, 0, 0); */
+  text-align: center;
+  font-size: 25px;
+}
+.retailer_card p {
+  font-size: 23px;
+  font-weight: 700;
+}
+
+form .Product_details {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 70px;
+}
+
+form .Product_details .input_pox {
+  margin-bottom: 15px;
+  /* margin: 20px 0 12px 0; */
+  width: calc(50% - 10px); /* Adjust width to have two inputs per row */
+}
+
+.Product_details .input_pox .datails {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  text-align: start;
+}
+
+.Product_details .input_pox input {
+  width: 70%;
+  height: 30px;
+  padding: 8px 9px;
+  display: block;
+  border: none;
+  outline: none;
+  background-color: #c0dbea;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-top: 10px;
+  text-align: start;
+}
+.input_pox textarea {
+  height: 70px;
+  padding: 8px 9px;
+  display: block;
+  border: none;
+  outline: none;
+  background-color: #c0dbea;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-top: 10px;
+  text-align: start;
+  resize: none;
+  margin-right: 150px;;
+}
+
+.upload_btn {
+  margin: 0 auto;
+  margin-right: 300px;
+}
+
+.upload_btn button {
+  border-radius: 15px;
+  padding: 14px 16px;
+  border: none;
+  background-color: #ff3f5b;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 30px;
+  margin-right: 70px;
+}

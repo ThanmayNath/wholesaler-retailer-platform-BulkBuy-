@@ -44,18 +44,18 @@
 .image_div {
   position: absolute;
   right: 5%;
-	animation: float 4s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
-	0% {
-		transform: translatey(0px);
-	}
-	50% {
-		transform: translatey(-30px);
-	}
-	100% {
-		transform: translatey(0px);
-	}
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-30px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
 }
 /* categories css */
 
@@ -99,7 +99,7 @@
   max-width: 1300px;
   overflow-x: scroll;
   transition: 1s all ease;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 .card {
@@ -110,7 +110,7 @@
   overflow: hidden;
   margin-right: 10px;
 }
-.card:hover{
+.card:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 }
 
@@ -149,14 +149,9 @@
 .card_image .img {
   /* transform: rotateZ(25deg); */
 }
-.heading{
+.heading {
   display: flex;
   align-items: center;
-  justify-content:space-between ;
+  justify-content: space-between;
   width: 1300px;
-  
 }
-
-
-
-
