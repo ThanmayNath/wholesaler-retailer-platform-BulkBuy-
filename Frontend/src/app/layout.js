@@ -1,25 +1,38 @@
+"use client";
 import "./globals.css";
 import Header from "@src/components/Header/Header";
 import Footer from "@src/components/Footer/Footer";
-import { Poppins } from "next/font/google";
+import { useState, useEffect } from "react";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
-const montserrat = Poppins({
-  weight: "400",
-  subsets: ["latin"],
-});
+export default function MainLayout({ children }) {
+  const [isLoading, setIsLoading] = useState(false);
 
-export const metadata = {
-  title: "BulKBuy",
-  description: "buy anything at a wholesale Rate",
-};
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
 
-export default function RootLayout({ children }) {
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <html lang="en" className={montserrat.className}>
+    <html lang="en">
+      <head>
+        {/* Add your meta tags, title, and other head elements here */}
+      </head>
       <body>
-        <Header />
-        {children}
-        <Footer />
+        {isLoading ? (
+          <div className="loader-wrapper">
+            <ClimbingBoxLoader color="#3A2794" loading={isLoading} size={50} />
+          </div>
+        ) : (
+          <>
+            <Header />
+            {children}
+            <Footer />
+          </>
+        )}
       </body>
     </html>
   );

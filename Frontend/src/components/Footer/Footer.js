@@ -1,5 +1,6 @@
 import React from "react";
-import "./Footer.css";
+import Link from "next/link";
+import "./footer.css";
 
 const Footer = () => {
   return (
@@ -10,30 +11,30 @@ const Footer = () => {
             <h4>Bulk Buy</h4>
             <ul>
               <li>
-                <a href="#">about us</a>
+                <Link href="/about">About Us</Link>
               </li>
               <li>
-                <a href="#">our services</a>
+                <Link href="/services">Our Services</Link>
               </li>
               <li>
-                <a href="#">privacy policy</a>
+                <Link href="/privacy">Privacy Policy</Link>
               </li>
             </ul>
           </div>
           <div className="footer-col">
-            <h4>get help</h4>
+            <h4>Get Help</h4>
             <ul>
               <li>
-                <a href="#">shipping</a>
+                <Link href="/shipping">Shipping</Link>
               </li>
               <li>
-                <a href="#">returns</a>
+                <Link href="/returns">Returns</Link>
               </li>
               <li>
-                <a href="#">order status</a>
+                <Link href="/order-status">Order Status</Link>
               </li>
               <li>
-                <a href="#">payment options</a>
+                <Link href="/payment-options">Payment Options</Link>
               </li>
             </ul>
           </div>
@@ -41,21 +42,23 @@ const Footer = () => {
             <h4>Shop By Category</h4>
             <ul>
               <li>
-                <a href="#">Electronics</a>
+                <Link href="/category/electronics">Electronics</Link>
               </li>
               <li>
-                <a href="#">Home Appliance</a>
+                <Link href="/category/home-appliance">Home Appliance</Link>
               </li>
               <li>
-                <a href="#">Sports</a>
+                <Link href="/category/sports">Sports</Link>
               </li>
               <li>
-                <a href="#">Health And Wellness</a>
+                <Link href="/category/health-wellness">
+                  Health And Wellness
+                </Link>
               </li>
             </ul>
           </div>
           <div className="footer-col">
-            <h4>follow us</h4>
+            <h4>Follow Us</h4>
             <div className="social-links">
               <a href="#">
                 <i className="fab fa-facebook-f"></i>

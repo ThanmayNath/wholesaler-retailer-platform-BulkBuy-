@@ -78,6 +78,12 @@
   align-items: center;
   gap: 2rem;
 }
+.account_info a {
+  color: white;
+  text-decoration: none;
+  
+
+}
 .login a {
   /* border:1px solid red; */
   margin-left: 50px;

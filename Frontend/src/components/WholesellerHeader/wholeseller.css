@@ -1,0 +1,163 @@
+.wholeseller_header {
+  height: 9vh;
+  /* border: 1px solid red; */
+  background-color: #4d25e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.w_header {
+  max-width: 1300px;
+  margin: 0 auto;
+  height: 9vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo_section {
+  font-size: 28px;
+  color: white;
+  font-weight: 800;
+}
+.logo_section a {
+  color: white;
+  text-decoration: none;
+}
+.menu_section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  gap: 50px;
+}
+.menu_section a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+  transition: 0.4s all ease;
+}
+.menu_section a::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  background-color: red;
+}
+.menu_section a::after:hover {
+  width: 100%;
+}
+.menu_section a:hover {
+  color: rgba(0, 0, 0, 0.665);
+}
+.logout_section select {
+  margin-left: 50px;
+  color: white;
+  padding: 15px 12px;
+  border-radius: 10px;
+  background-color: rgb(49, 187, 21);
+  font-size: 18px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  border-right: 10px solid transparent;
+}
+
+.logout_section select option {
+  color: white;
+  font-size: 19px;
+  font-weight: 500;
+  padding: 10px 12px; /* Adjust the padding as needed */
+  height: 40px; /* Adjust the height as needed */
+  width: 200px; /* Adjust the width as needed */
+}
+
+/* css for modal  */
+
+.edit_profile_modal {
+  height: 80vh;
+  width: 100%;
+  position: absolute;
+  top: 9%;
+  left: 0%;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+.Rprofile_card {
+  width: 45%;
+  height: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 19%;
+  left: 25%;
+  background: white;
+  border-radius: 30px;
+  padding: 30px;
+}
+.Rprofile_card .close_btn {
+  position: absolute;
+  right: 2%;
+  top: 0%;
+  height: 40px;
+  width: 40px;
+  border: none;
+  font-size: 23px;
+  color: red;
+  background: transparent;
+}
+form .Bikes_details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 70px;
+}
+
+form .Bikes_details .input_pox {
+  margin-bottom: 15px;
+  /* margin: 20px 0 12px 0; */
+  width: calc(50% - 10px); /* Adjust width to have two inputs per row */
+}
+
+.Bikes_details .input_pox .datails {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.Bikes_details .input_pox input {
+  width: 70%;
+  height: 30px;
+  padding: 8px 9px;
+  display: block;
+  border: none;
+  outline: none;
+  background-color: #c0dbea;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-top: 10px;
+  text-align: start;
+}
+
+.update_btn {
+  margin: 0 auto;
+}
+
+.update_btn button {
+  border-radius: 15px;
+  padding: 14px 16px;
+  border: none;
+  background-color: #ff3f5b;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 30px;
+  margin-right: 70px;
+}

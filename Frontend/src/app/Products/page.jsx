@@ -1,39 +1,30 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import "./Product.css";
+import "./Products.css";
 import { AiOutlineClose } from "react-icons/ai";
-import axios from "axios";
-import Product_cards from "@src/app/utils/Product_card";
+import { useState } from "react";
+import Product_cards from "@src/utils/Product_data";
+import Image from "next/image";
+import Link from "next/link";
 
-const Product_card = () => {
-  const [Products, setProducts] = useState([]);
+export default function Products() {
+  const [activeButton, setActiveButton] = useState("All Products");
   const [showProductDetails, setProductDetails] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductIndex, setSelectedProductIndex] = useState(null);
 
-  useEffect(() => {
-    const featchAllProducts = async () => {
-      try {
-        const res = await axios.get("http://localhost:8800/products");
-        console.log(res.data);
-        setProducts(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    featchAllProducts();
-  }, []);
+  const [productQuantities, setProductQuantities] = useState(
+    Product_cards.map(() => ({ quantity: 5 }))
+  );
+
+  const activateButton = (buttonText) => {
+    setActiveButton(buttonText);
+  };
 
   const toggleProductDetails = (product, index) => {
     setSelectedProduct(product);
     setSelectedProductIndex(index);
     setProductDetails(!showProductDetails);
   };
-
-  const [productQuantities, setProductQuantities] = useState(
-    Product_cards.map(() => ({ quantity: 5 }))
-  );
 
   const addCart = (index) => {
     setProductQuantities((prevQuantities) => {
@@ -60,37 +51,52 @@ const Product_card = () => {
     });
   };
 
-  // product added to cart
-  const productadded = () => {
-    alert(
-      productQuantities[selectedProductIndex].quantity +
-        " product added to cart"
-    );
-  };
-
-  // modal image changing
+  const filteredProducts =
+    activeButton === "All Products"
+      ? Product_cards
+      : Product_cards.filter((product) => product.category === activeButton);
 
   return (
-    <div className="Products">
-      <div className="discount_div">
-        <div className="discount_main">
-          <div className="heading">
-            <h2>View Products</h2>
-          </div>
-          <div className="view_more">View All Products</div>
+    <div className="Products_main">
+      <h2 className="Product_heading">Products</h2>
+
+      {/* filter tab code */}
+      <div className="filter_div">
+        <div className="filter_button">
+          <button
+            onClick={() => activateButton("All Products")}
+            className={activeButton === "All Products" ? "active" : ""}
+          >
+            All Products
+          </button>
+          {/* Render the other filter buttons dynamically */}
+          {[
+            "Electronics",
+            "Stationary",
+            "Cosmetics",
+            "KitchenWare",
+            "Beverages",
+            "Food And Grocery",
+          ].map((filter) => (
+            <button
+              key={filter}
+              onClick={() => activateButton(filter)}
+              className={activeButton === filter ? "active" : ""}
+            >
+              {filter}
+            </button>
+          ))}
         </div>
       </div>
-      <div className="load_more">
-        <Link href={"/loadmore"}>Load More</Link>
-      </div>
-      <div className="product_carddiv">
-        {/* Render the fetched products */}
-        {Products.map((product, index) => (
-          <div className="p_card" key={product.product_id}>
+
+      {/* product card  */}
+      <div className="product_card">
+        {filteredProducts.map((product, index) => (
+          <div className="p_card" key={product.id}>
             <div className="product_img">
-              <img
-                src={`http://localhost:8800/${product.product_image_url}`}
-                alt={product.product_name}
+              <Image
+                src={product.image}
+                alt={product.title}
                 width={271}
                 height={181}
                 className="p_img"
@@ -104,9 +110,9 @@ const Product_card = () => {
                 </button>
               </div>
             </div>
-            <h2>{product.product_name}</h2>
+            <h2>{product.title}</h2>
             <div className="cart_pricediv">
-              <div className="p_price">₹{product.product_price}</div>
+              <div className="p_price">${product.price}</div>
               <div className="cart_add">
                 <button className="add_btn" onClick={() => addCart(index)}>
                   +
@@ -123,8 +129,7 @@ const Product_card = () => {
           </div>
         ))}
       </div>
-
-      {/* modal for product page */}
+      {/* MODAL CODE FOR PRODUCT CARD  */}
       {showProductDetails && selectedProduct && (
         <div className="productdetails_modal">
           <AiOutlineClose
@@ -135,46 +140,34 @@ const Product_card = () => {
             <div className="product_maindiv">
               <div className="product_imagediv">
                 <div className="product_innerdiv">
-                  <img
+                  <Image
                     className="main_img"
-                    src={`http://localhost:8800/${selectedProduct.product_image_url}`}
+                    src={selectedProduct.image}
                     width={341}
                     height={231}
-                  ></img>
+                  />
                 </div>
                 <div className="product_thumbnail_grid">
-                  <div className="product_thumbnail">
-                    <img
-                      className="extra_img"
-                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
-                      width={100}
-                      height={100}
-                    ></img>
-                  </div>
-                  <div className="product_thumbnail">
-                    <img
-                      className="extra_img"
-                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
-                      width={100}
-                      height={100}
-                    ></img>
-                  </div>
-                  <div className="product_thumbnail">
-                    <img
-                      className="extra_img"
-                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
-                      width={100}
-                      height={100}
-                    ></img>
-                  </div>
+                  {[...Array(3)].map((_, thumbnailIndex) => (
+                    <div className="product_thumbnail" key={thumbnailIndex}>
+                      <Image
+                        className="extra_img"
+                        src={selectedProduct.image}
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
+
             <div className="product_infodiv">
               <div className="p_title">
-                <h2>{selectedProduct.product_name}</h2>
+                <h2>{selectedProduct.title}</h2>
               </div>
-              <div className="p_price">₹{selectedProduct.product_price}</div>
+              <div className="p_price">${selectedProduct.price}</div>
+              <div className="p_cat">Category: {selectedProduct.category}</div>
               <div className="p_cartdiv">
                 <div className="p_cart">
                   <button
@@ -186,7 +179,6 @@ const Product_card = () => {
                   <div className="p_main">
                     {productQuantities[selectedProductIndex].quantity}
                   </div>
-
                   <button
                     className="add_btn"
                     onClick={() => minusCart(selectedProductIndex)}
@@ -195,28 +187,30 @@ const Product_card = () => {
                   </button>
                 </div>
                 <div className="p_addtocart">
-                  <button className="p_btn" onClick={() => productadded()}>
+                  <button className="p_btn">
                     Add to Cart
                   </button>
                 </div>
               </div>
               <div className="p_availablestock">
-                Available Stock:
-                {selectedProduct.product_quantity -
-                  productQuantities[selectedProductIndex].quantity}
+                Available Stock:{" "}
+                {500 - productQuantities[selectedProductIndex].quantity}
               </div>
               <div className="p_details">
                 <p>Product Details</p>
                 <div className="p_des">
-                  {selectedProduct.product_description}
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Neque, quasi?
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
+      <div className="view_more">
+        <button>SHOW MORE</button>
+      </div>
     </div>
+  
   );
-};
-
-export default Product_card;
+}

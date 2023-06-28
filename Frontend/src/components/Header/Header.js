@@ -22,8 +22,13 @@ const Header = () => {
             <div className="searchbar_div">
               <select className="product_select" defaultValue="1">
                 <option value="1">All Products</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="2">Electronics</option>
+                <option value="3">Stationary</option>
+                <option value="4">Cosmetics</option>
+                <option value="5">Kitchenware</option>
+                <option value="6">Automotive</option>
+                <option value="6">Beverages</option>
+                <option value="6">Food and Grocery</option>
               </select>
               <input
                 type="text"
@@ -37,21 +42,17 @@ const Header = () => {
           </form>
           <div className="side_div">
             <div className="account_info">
-              <select className="account" defaultValue="1">
-                <option value="1">Account</option>
-                <option value="2">Login</option>
-                <option value="3">Register</option>
-              </select>
+              <Link href="/Products">Products</Link>
             </div>
             <div className="cart_div">
               <FaShoppingCart />
               <p>Cart</p>
             </div>
             <div className="login">
-              <Link href="./login">Login</Link>
+              <Link href="./Login">Login</Link>
             </div>
             <div className="register">
-              <Link href="./register">Signup</Link>
+              <Link href="./Register">Signup</Link>
             </div>
           </div>
         </div>
