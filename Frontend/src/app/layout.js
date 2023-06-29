@@ -4,6 +4,8 @@ import Header from "@src/components/Header/Header";
 import Footer from "@src/components/Footer/Footer";
 import { useState, useEffect } from "react";
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MainLayout({ children }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +33,7 @@ export default function MainLayout({ children }) {
             <Header />
             {children}
             <Footer />
+            <ToastContainer />
           </>
         )}
       </body>

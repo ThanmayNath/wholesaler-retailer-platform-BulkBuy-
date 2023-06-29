@@ -1,12 +1,15 @@
 "use client";
 import "./Products.css";
 import { AiOutlineClose } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Product_cards from "@src/utils/Product_data";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import categories from "@src/utils/categories";
 
 export default function Products() {
+  const [Products, setProducts] = useState([]);
   const [activeButton, setActiveButton] = useState("All Products");
   const [showProductDetails, setProductDetails] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -15,6 +18,19 @@ export default function Products() {
   const [productQuantities, setProductQuantities] = useState(
     Product_cards.map(() => ({ quantity: 5 }))
   );
+
+  useEffect(() => {
+    const featchAllNotes = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/products");
+        console.log(res.data);
+        setProducts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    featchAllNotes();
+  }, []);
 
   const activateButton = (buttonText) => {
     setActiveButton(buttonText);
@@ -53,8 +69,8 @@ export default function Products() {
 
   const filteredProducts =
     activeButton === "All Products"
-      ? Product_cards
-      : Product_cards.filter((product) => product.category === activeButton);
+      ? Products
+      : Products.filter((product) => product.category_id === activeButton);
 
   return (
     <div className="Products_main">
@@ -70,20 +86,13 @@ export default function Products() {
             All Products
           </button>
           {/* Render the other filter buttons dynamically */}
-          {[
-            "Electronics",
-            "Stationary",
-            "Cosmetics",
-            "KitchenWare",
-            "Beverages",
-            "Food And Grocery",
-          ].map((filter) => (
+          {categories.map((filter) => (
             <button
-              key={filter}
-              onClick={() => activateButton(filter)}
-              className={activeButton === filter ? "active" : ""}
+              key={filter.id}
+              onClick={() => activateButton(filter.name)}
+              className={activeButton === filter.name ? "active" : ""}
             >
-              {filter}
+              {filter.name}
             </button>
           ))}
         </div>
@@ -92,10 +101,10 @@ export default function Products() {
       {/* product card  */}
       <div className="product_card">
         {filteredProducts.map((product, index) => (
-          <div className="p_card" key={product.id}>
+          <div className="p_card" key={product.product_id}>
             <div className="product_img">
               <Image
-                src={product.image}
+                src={`http://localhost:8800/${product.product_image_url}`}
                 alt={product.title}
                 width={271}
                 height={181}
@@ -110,9 +119,9 @@ export default function Products() {
                 </button>
               </div>
             </div>
-            <h2>{product.title}</h2>
+            <h2>{product.product_name}</h2>
             <div className="cart_pricediv">
-              <div className="p_price">${product.price}</div>
+              <div className="p_price">${product.product_price}</div>
               <div className="cart_add">
                 <button className="add_btn" onClick={() => addCart(index)}>
                   +
@@ -142,7 +151,7 @@ export default function Products() {
                 <div className="product_innerdiv">
                   <Image
                     className="main_img"
-                    src={selectedProduct.image}
+                    src={`http://localhost:8800/${selectedProduct.product_image_url}`}
                     width={341}
                     height={231}
                   />
@@ -164,9 +173,9 @@ export default function Products() {
 
             <div className="product_infodiv">
               <div className="p_title">
-                <h2>{selectedProduct.title}</h2>
+                <h2>{selectedProduct.product_name}</h2>
               </div>
-              <div className="p_price">${selectedProduct.price}</div>
+              <div className="p_price">${selectedProduct.product_price}</div>
               <div className="p_cat">Category: {selectedProduct.category}</div>
               <div className="p_cartdiv">
                 <div className="p_cart">
@@ -187,9 +196,7 @@ export default function Products() {
                   </button>
                 </div>
                 <div className="p_addtocart">
-                  <button className="p_btn">
-                    Add to Cart
-                  </button>
+                  <button className="p_btn">Add to Cart</button>
                 </div>
               </div>
               <div className="p_availablestock">
@@ -211,6 +218,5 @@ export default function Products() {
         <button>SHOW MORE</button>
       </div>
     </div>
-  
   );
 }

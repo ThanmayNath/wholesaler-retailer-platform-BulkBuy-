@@ -49,10 +49,10 @@ const Header = () => {
               <p>Cart</p>
             </div>
             <div className="login">
-              <Link href="./Login">Login</Link>
+              <Link href="./login">Login</Link>
             </div>
             <div className="register">
-              <Link href="./Register">Signup</Link>
+              <Link href="./register">Signup</Link>
             </div>
           </div>
         </div>

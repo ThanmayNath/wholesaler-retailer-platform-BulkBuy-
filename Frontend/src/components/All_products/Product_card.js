@@ -1,15 +1,29 @@
 "use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import "./AllProduct.css";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { AiOutlineClose } from "react-icons/ai";
-import Product_cards from "@src//utils/Product_data";
+import axios from "axios";
+import Product_cards from "@src/app/utils/Product_card";
 
 const Product_card = () => {
+  const [Products, setProducts] = useState([]);
   const [showProductDetails, setProductDetails] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductIndex, setSelectedProductIndex] = useState(null);
+
+  useEffect(() => {
+    const featchAllNotes = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/products");
+        console.log(res.data);
+        setProducts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    featchAllNotes();
+  }, []);
 
   const toggleProductDetails = (product, index) => {
     setSelectedProduct(product);
@@ -50,12 +64,11 @@ const Product_card = () => {
   const productadded = () => {
     alert(
       productQuantities[selectedProductIndex].quantity +
-      " product added to cart"
+        " product added to cart"
     );
   };
 
   // modal image changing
-
   return (
     <div className="Products">
       <div className="discount_div">
@@ -71,12 +84,12 @@ const Product_card = () => {
       </div>
       <div className="product_carddiv">
         {/* Render the fetched products */}
-        {Product_cards.map((product, index) => (
-          <div className="p_card" key={product.id}>
+        {Products.map((product, index) => (
+          <div className="p_card" key={product.product_id}>
             <div className="product_img">
-              <Image
-                src={product.image}
-                alt={product.title}
+              <img
+                src={`http://localhost:8800/${product.product_image_url}`}
+                alt={product.product_name}
                 width={271}
                 height={181}
                 className="p_img"
@@ -90,9 +103,9 @@ const Product_card = () => {
                 </button>
               </div>
             </div>
-            <h2>{product.title}</h2>
+            <h2>{product.product_name}</h2>
             <div className="cart_pricediv">
-              <div className="p_price">${product.price}</div>
+              <div className="p_price">₹{product.product_price}</div>
               <div className="cart_add">
                 <button className="add_btn" onClick={() => addCart(index)}>
                   +
@@ -121,46 +134,46 @@ const Product_card = () => {
             <div className="product_maindiv">
               <div className="product_imagediv">
                 <div className="product_innerdiv">
-                  <Image
+                  <img
                     className="main_img"
-                    src={selectedProduct.image}
+                    src={`http://localhost:8800/${selectedProduct.product_image_url}`}
                     width={341}
                     height={231}
-                  ></Image>
+                  ></img>
                 </div>
                 <div className="product_thumbnail_grid">
                   <div className="product_thumbnail">
-                    <Image
+                    <img
                       className="extra_img"
-                      src={selectedProduct.image}
+                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
                       width={100}
                       height={100}
-                    ></Image>
+                    ></img>
                   </div>
                   <div className="product_thumbnail">
-                    <Image
+                    <img
                       className="extra_img"
-                      src={selectedProduct.image}
+                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
                       width={100}
                       height={100}
-                    ></Image>
+                    ></img>
                   </div>
                   <div className="product_thumbnail">
-                    <Image
+                    <img
                       className="extra_img"
-                      src={selectedProduct.image}
+                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
                       width={100}
                       height={100}
-                    ></Image>
+                    ></img>
                   </div>
                 </div>
               </div>
             </div>
             <div className="product_infodiv">
               <div className="p_title">
-                <h2>{selectedProduct.title}</h2>
+                <h2>{selectedProduct.product_name}</h2>
               </div>
-              <div className="p_price">${selectedProduct.price}</div>
+              <div className="p_price">₹{selectedProduct.product_price}</div>
               <div className="p_cartdiv">
                 <div className="p_cart">
                   <button
@@ -187,15 +200,14 @@ const Product_card = () => {
                 </div>
               </div>
               <div className="p_availablestock">
-                Available Stock:{" "}
-                {500 - productQuantities[selectedProductIndex].quantity}
+                Available Stock:
+                {selectedProduct.product_quantity -
+                  productQuantities[selectedProductIndex].quantity}
               </div>
               <div className="p_details">
                 <p>Product Details</p>
                 <div className="p_des">
-                  {/* {selectedProduct.description} */}
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Neque, quasi?
+                  {selectedProduct.product_description}
                 </div>
               </div>
             </div>

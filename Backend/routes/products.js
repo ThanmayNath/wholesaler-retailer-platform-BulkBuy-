@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, query } from "express";
 const router = Router();
 import db from "../db/config.js";
 import multer from "multer";
@@ -19,6 +19,18 @@ router.get("/", async (req, res) => {
   const query = `SELECT * FROM public.products`;
   try {
     const data = await db.query(query);
+    const result = data.rows;
+    return res.send(result).status(200);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const value = [req.params.id];
+  const query = `SELECT * FROM public.products WHERE wholesaler_id=$1`;
+  try {
+    const data = await db.query(query, value);
     const result = data.rows;
     return res.send(result).status(200);
   } catch (error) {
@@ -50,6 +62,8 @@ router.post("/upload", (req, res) => {
       filePaths[2], // Third image URL
     ];
 
+    console.log(values);
+
     const query = `INSERT INTO public.products(
       wholesaler_id, category_id, product_name, product_description, product_price, product_quantity, 
       product_image_url, product_image_url2, product_image_url3)
@@ -65,6 +79,24 @@ router.post("/upload", (req, res) => {
         .json({ error: "An error occurred while uploading the product." });
     }
   });
+});
+
+router.put("/update", async (req, res) => {
+  try {
+    const values = [
+      req.body.product_price,
+      req.body.product_quantity,
+      req.body.product_id,
+    ];
+    const query = `UPDATE public.products SET product_price=$1, product_quantity=$2 WHERE product_id=$3`;
+    await db.query(query, values);
+    res.status(200).json({ message: "Updated successfully." });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the product." });
+  }
 });
 
 export default router;

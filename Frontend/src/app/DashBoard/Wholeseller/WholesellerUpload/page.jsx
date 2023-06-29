@@ -1,6 +1,77 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import axios from "axios";
 import "./RetailerUpload.css";
-const page = () => {
+import categories from "@src/utils/categories";
+import { toast } from "react-toastify";
+
+const Page = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
+  const [stocks, setStocks] = useState("");
+  const [productImage, setProductImage] = useState(null);
+  const [description, setDescription] = useState("");
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handleProductImageChange = (event) => {
+    setProductImage(event.target.files[0]);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append("wholesaler_id", localStorage.getItem("userId"));
+      formData.append("product_name", productName);
+      formData.append("product_price", price);
+      formData.append("product_quantity", stocks);
+      formData.append("files", productImage);
+      formData.append("product_description", description);
+      formData.append("category_id", selectedCategory);
+
+      const res = await axios.post(
+        "http://localhost:8800/products/upload",
+        formData
+      );
+      if (res.status === 200) {
+        console.log(res.data.message);
+        toast.success(res.data.message, {
+          icon: "🚀",
+          position: "top-center",
+          autoClose: 4000,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+      } else {
+        toast("Failed to upload", {
+          icon: "🚫",
+          position: "top-center",
+          autoClose: 4000,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        console.log("Failed to upload");
+      }
+    } catch (error) {
+      toast.error("Failed to upload", {
+        icon: "🚫",
+        position: "top-center",
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="retailer_upload">
@@ -9,7 +80,7 @@ const page = () => {
           <div className="retailer_card">
             <p>Enter Product Details</p>
             <div className="Upload_div">
-              <form action="#">
+              <form>
                 <div className="Product_details">
                   <div className="input_pox">
                     <span className="datails">Product Name</span>
@@ -17,6 +88,8 @@ const page = () => {
                       type="text"
                       required
                       placeholder="Enter Product name"
+                      value={productName}
+                      onChange={(e) => setProductName(e.target.value)}
                     />
                   </div>
                   <div className="input_pox">
@@ -25,6 +98,8 @@ const page = () => {
                       type="number"
                       required
                       placeholder="Enter price of product"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
                     />
                   </div>
                   <div className="input_pox">
@@ -33,6 +108,8 @@ const page = () => {
                       type="number"
                       required
                       placeholder="Available Stocks"
+                      value={stocks}
+                      onChange={(e) => setStocks(e.target.value)}
                     />
                   </div>
                   <div className="input_pox">
@@ -40,10 +117,10 @@ const page = () => {
                     <input
                       className="image_upload"
                       type="file"
-                      onchange="updateFileName(this)"
                       multiple
                       name=""
                       id=""
+                      onChange={handleProductImageChange}
                     />
                   </div>
                   <div className="input_pox">
@@ -54,11 +131,28 @@ const page = () => {
                       cols="75"
                       rows="10"
                       placeholder="Enter something about the product .."
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                   </div>
-
+                  <div className="input_pox">
+                    <span className="datails">Category</span>
+                    <select
+                      value={selectedCategory}
+                      onChange={handleCategoryChange}
+                    >
+                      <option value="">Select a category</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <div className="upload_btn">
-                    <button type="submit">Update Profile</button>
+                    <button type="submit" onClick={handleSubmit}>
+                      Upload
+                    </button>
                   </div>
                 </div>
               </form>
@@ -70,4 +164,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

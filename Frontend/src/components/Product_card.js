@@ -4,7 +4,6 @@ import Link from "next/link";
 import "./Product.css";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
-import Product_cards from "@src/app/utils/Product_card";
 
 const Product_card = () => {
   const [Products, setProducts] = useState([]);

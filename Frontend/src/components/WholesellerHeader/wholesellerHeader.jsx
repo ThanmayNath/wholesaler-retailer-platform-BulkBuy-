@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
 const WholesellerHeader = () => {
-  const Retailer_name = "Ranjit";
+  const Retailer_name = "Thanmay";
 
   const [selectedOption, setSelectedOption] = useState("hey");
   const [showModal, setShowModal] = useState(false);
