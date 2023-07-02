@@ -1,21 +1,22 @@
 "use client";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import "./login.css";
 import axios from "axios";
-//import { authContext } from "../contexts/auth";
-//import { AuthProvider } from "../contexts/auth";
+import { toast } from "react-toastify";
 
 const login = () => {
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
-
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoggIn, setIsLoggedIn] = useState("");
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const handleLogin = async (e, endpoint) => {
     e.preventDefault();
@@ -23,12 +24,30 @@ const login = () => {
       email,
       password,
     };
+
     try {
       const res = await axios.post(endpoint, data);
       const { user, id, name } = res.data;
       localStorage.setItem("user", user);
       localStorage.setItem("userId", id);
       localStorage.setItem("userName", name);
+
+      if (user === "retailer") {
+        window.location.reload();
+        //router.push("/");
+        // setIsLoggedIn(true);
+      } else if (user === "wholesaler") {
+        router.push("/DashBoard/Wholeseller/WholesellerUpload");
+      }
+
+      toast.success(res.data.message, {
+        icon: "✅",
+        position: "top-center",
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
     } catch (error) {
       console.error(error);
     }

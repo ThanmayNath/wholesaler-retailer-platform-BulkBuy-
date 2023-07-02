@@ -46,7 +46,7 @@
   border-radius: 0px 5px 5px 0px;
   outline: none;
   border: none;
-  padding-left: 20px;
+  padding-left: 30px;
   font-family: inherit;
   font-size: 16px;
 }
@@ -59,6 +59,7 @@
 .searchbar_div {
   position: relative;
   left: 20%;
+  margin-right: 175px;
 }
 .account {
   background: none;
@@ -81,8 +82,15 @@
 .account_info a {
   color: white;
   text-decoration: none;
-  
-
+}
+.account_logout button {
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background-color: rgb(49, 187, 21);
+  font-size: 16px;
+  border: none;
+  text-decoration: none;
 }
 .login a {
   /* border:1px solid red; */
@@ -96,9 +104,10 @@
   text-decoration: none;
 }
 .register a {
-  border: 2px solid red;
-  color: rgb(34, 230, 31);
+  color: white;
+  padding: 10px 16px;
   border-radius: 10px;
+  background-color: rgb(49, 187, 21);
   font-size: 16px;
   border: none;
   text-decoration: none;
@@ -114,4 +123,120 @@
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.logout_section select {
+  color: white;
+  padding: 13px 10px;
+  border-radius: 10px;
+  background-color: rgb(49, 187, 21);
+  font-size: 18px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  border-right: 10px solid transparent;
+}
+
+.logout_section select option {
+  color: white;
+  font-size: 19px;
+  font-weight: 500;
+  padding: 10px 12px; /* Adjust the padding as needed */
+  height: 40px; /* Adjust the height as needed */
+  width: 200px; /* Adjust the width as needed */
+}
+
+/* css for modal  */
+
+.edit_profile_modal {
+  height: 80vh;
+  width: 100%;
+  position: absolute;
+  top: 9%;
+  left: 0%;
+  padding: 30px;
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  z-index: 100;
+}
+.Uprofile_card {
+  width: 22%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10%;
+  left: 67%;
+  background: white;
+  border-radius: 10px;
+}
+.Uprofile_card .close_btn {
+  position: absolute;
+  left: 88%;
+  top: 0%;
+  height: 40px;
+  width: 40px;
+  border: none;
+  font-size: 23px;
+  color: red;
+  background: transparent;
+}
+form .Bikes_details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+form .Bikes_details .input_pox {
+  margin-bottom: 15px;
+  /* margin: 20px 0 12px 0; */
+  /* Adjust width to have two inputs per row */
+}
+
+.Bikes_details .input_pox .datails {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.Bikes_details .input_pox input {
+  height: 30px;
+  padding: 8px 9px;
+  display: block;
+  border: none;
+  outline: none;
+  background-color: #c0dbea;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+  margin-top: 10px;
+  text-align: start;
+}
+
+.update_btn {
+  margin: 0 auto;
+}
+
+.update_btn button {
+  border-radius: 15px;
+  padding: 14px 16px;
+  border: none;
+  background-color: #ff3f5b;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 30px;
+}
+.Ubutton {
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background-color: rgb(49, 187, 21);
+  font-size: 16px;
+  border: none;
+  text-decoration: none;
+  font-weight: 600;
 }

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
-import Product_cards from "@src/app/utils/Product_card";
+import Product_data from "@src/utils/Product_data";
 
 const Product_card = () => {
   const [Products, setProducts] = useState([]);
@@ -32,7 +32,7 @@ const Product_card = () => {
   };
 
   const [productQuantities, setProductQuantities] = useState(
-    Product_cards.map(() => ({ quantity: 5 }))
+    Product_data.map(() => ({ quantity: 5 }))
   );
 
   const addCart = (index) => {
@@ -90,8 +90,8 @@ const Product_card = () => {
               <img
                 src={`http://localhost:8800/${product.product_image_url}`}
                 alt={product.product_name}
-                width={271}
-                height={181}
+                width={340}
+                height={200}
                 className="p_img"
               />
               <div className="overlay">
@@ -137,8 +137,8 @@ const Product_card = () => {
                   <img
                     className="main_img"
                     src={`http://localhost:8800/${selectedProduct.product_image_url}`}
-                    width={341}
-                    height={231}
+                    width={441}
+                    height={251}
                   ></img>
                 </div>
                 <div className="product_thumbnail_grid">

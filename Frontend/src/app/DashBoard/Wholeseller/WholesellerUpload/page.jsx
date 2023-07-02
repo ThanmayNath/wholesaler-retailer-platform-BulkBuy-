@@ -119,7 +119,7 @@ const Page = () => {
                       type="file"
                       multiple
                       name=""
-                      id=""
+                      id=""  
                       onChange={handleProductImageChange}
                     />
                   </div>
@@ -137,11 +137,11 @@ const Page = () => {
                   </div>
                   <div className="input_pox">
                     <span className="datails">Category</span>
-                    <select
+                    <select className="categoryp"
                       value={selectedCategory}
                       onChange={handleCategoryChange}
                     >
-                      <option value="">Select a category</option>
+                      <option  value="">Select a category</option>
                       {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}

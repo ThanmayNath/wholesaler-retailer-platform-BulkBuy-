@@ -7,7 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import categories from "@src/utils/categories";
-
+import { isAuthenticated } from "@src/utils/auth";
+import Login from "../Login/page";
 export default function Products() {
   const [Products, setProducts] = useState([]);
   const [activeButton, setActiveButton] = useState("All Products");
@@ -19,6 +20,20 @@ export default function Products() {
     Product_cards.map(() => ({ quantity: 5 }))
   );
 
+  // protected route for products page
+  const [authenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    const isAuthenticatedUser = isAuthenticated();
+    setAuthenticated(isAuthenticatedUser);
+
+    if (!isAuthenticatedUser) {
+      window.location.replace("/Login"); // Replace with the actual login page URL
+    }
+  }, []);
+
+  if (!authenticated) {
+    return <Login />;
+  }
   useEffect(() => {
     const featchAllNotes = async () => {
       try {
@@ -106,8 +121,8 @@ export default function Products() {
               <Image
                 src={`http://localhost:8800/${product.product_image_url}`}
                 alt={product.title}
-                width={271}
-                height={181}
+                width={341}
+                height={199}
                 className="p_img"
               />
               <div className="overlay">
@@ -140,74 +155,79 @@ export default function Products() {
       </div>
       {/* MODAL CODE FOR PRODUCT CARD  */}
       {showProductDetails && selectedProduct && (
-        <div className="productdetails_modal">
-          <AiOutlineClose
-            className="close_btn"
-            onClick={toggleProductDetails}
-          />
-          <div className="product_maindiv">
-            <div className="product_maindiv">
-              <div className="product_imagediv">
-                <div className="product_innerdiv">
-                  <Image
-                    className="main_img"
-                    src={`http://localhost:8800/${selectedProduct.product_image_url}`}
-                    width={341}
-                    height={231}
-                  />
-                </div>
-                <div className="product_thumbnail_grid">
-                  {[...Array(3)].map((_, thumbnailIndex) => (
-                    <div className="product_thumbnail" key={thumbnailIndex}>
-                      <Image
-                        className="extra_img"
-                        src={selectedProduct.image}
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <div className="modalp">
+          <div className="productdetails_modal">
+            <AiOutlineClose
+              className="close_btn"
+              onClick={toggleProductDetails}
+            />
 
-            <div className="product_infodiv">
-              <div className="p_title">
-                <h2>{selectedProduct.product_name}</h2>
-              </div>
-              <div className="p_price">${selectedProduct.product_price}</div>
-              <div className="p_cat">Category: {selectedProduct.category}</div>
-              <div className="p_cartdiv">
-                <div className="p_cart">
-                  <button
-                    className="add_btn"
-                    onClick={() => addCart(selectedProductIndex)}
-                  >
-                    +
-                  </button>
-                  <div className="p_main">
-                    {productQuantities[selectedProductIndex].quantity}
+            <div className="product_maindiv">
+              <div className="product_maindiv">
+                <div className="product_imagediv">
+                  <div className="product_innerdiv">
+                    <Image
+                      className="main_img"
+                      src={`http://localhost:8800/${selectedProduct.product_image_url}`}
+                      width={341}
+                      height={231}
+                    />
                   </div>
-                  <button
-                    className="add_btn"
-                    onClick={() => minusCart(selectedProductIndex)}
-                  >
-                    -
-                  </button>
-                </div>
-                <div className="p_addtocart">
-                  <button className="p_btn">Add to Cart</button>
+                  <div className="product_thumbnail_grid">
+                    {[...Array(3)].map((_, thumbnailIndex) => (
+                      <div className="product_thumbnail" key={thumbnailIndex}>
+                        <Image
+                          className="extra_img"
+                          src={selectedProduct.image}
+                          width={100}
+                          height={100}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="p_availablestock">
-                Available Stock:{" "}
-                {500 - productQuantities[selectedProductIndex].quantity}
-              </div>
-              <div className="p_details">
-                <p>Product Details</p>
-                <div className="p_des">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Neque, quasi?
+
+              <div className="product_infodiv">
+                <div className="p_title">
+                  <h2>{selectedProduct.product_name}</h2>
+                </div>
+                <div className="p_price">${selectedProduct.product_price}</div>
+                <div className="p_cat">
+                  Category: {selectedProduct.category}
+                </div>
+                <div className="p_cartdiv">
+                  <div className="p_cart">
+                    <button
+                      className="add_btn"
+                      onClick={() => addCart(selectedProductIndex)}
+                    >
+                      +
+                    </button>
+                    <div className="p_main">
+                      {productQuantities[selectedProductIndex].quantity}
+                    </div>
+                    <button
+                      className="add_btn"
+                      onClick={() => minusCart(selectedProductIndex)}
+                    >
+                      -
+                    </button>
+                  </div>
+                  <div className="p_addtocart">
+                    <button className="p_btn">Add to Cart</button>
+                  </div>
+                </div>
+                <div className="p_availablestock">
+                  Available Stock:{" "}
+                  {500 - productQuantities[selectedProductIndex].quantity}
+                </div>
+                <div className="p_details">
+                  <p>Product Details</p>
+                  <div className="p_des">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Neque, quasi?
+                  </div>
                 </div>
               </div>
             </div>

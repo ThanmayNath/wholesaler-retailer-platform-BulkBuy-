@@ -1,6 +1,6 @@
 import pkg from "pg";
 const { Client } = pkg;
-
+//"db"
 const db = new Client({
   host: "localhost",
   port: 5432,

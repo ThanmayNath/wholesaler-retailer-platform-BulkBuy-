@@ -1,0 +1,23 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8800:8800"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123abc
+      POSTGRES_DB: BulkBuy
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

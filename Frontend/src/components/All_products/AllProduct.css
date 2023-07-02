@@ -81,14 +81,12 @@
   cursor: pointer;
   margin-top: 35px;
   transition: all 0.3s ease;
-
 }
 .p_img:hover {
   transform: scale(1.2);
 }
 .p_img {
   position: absolute;
-  right: 5%;
   transition: 0.3s all ease;
 }
 .p_card h2 {

@@ -1,16 +1,39 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import React from "react";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import "./header.css";
 
 const Header = () => {
-  const clicked = () => {
-    alert("searched");
-  };
+  const router = useRouter();
+  const [selectedOption, setSelectedOption] = useState("hey");
+  const [showModal, setShowModal] = useState(false);
+  const [userType, setUserType] = useState(localStorage.getItem("user"));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    if (userType === "retailer") {
+      setIsLoggedIn(true);
+      router.push("/");
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [userType]);
+  const handleChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedOption(selectedValue);
 
+    if (selectedValue === "edit") {
+      setShowModal(true);
+    } else if (selectedValue === "logout") {
+      localStorage.removeItem("user");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userName");
+      setUserType(localStorage.getItem("user"));
+      window.location.reload();
+      setIsLoggedIn(false);
+    }
+  };
   return (
     <>
       <div className="main">
@@ -27,8 +50,8 @@ const Header = () => {
                 <option value="4">Cosmetics</option>
                 <option value="5">Kitchenware</option>
                 <option value="6">Automotive</option>
-                <option value="6">Beverages</option>
-                <option value="6">Food and Grocery</option>
+                <option value="7">Beverages</option>
+                <option value="8">Food and Grocery</option>
               </select>
               <input
                 type="text"
@@ -37,23 +60,81 @@ const Header = () => {
                 placeholder="Enter Product Name"
                 className="search_box"
               />
-              <FaSearch className="search_icon" onClick={clicked} />
+              <FaSearch className="search_icon" />
             </div>
           </form>
+
           <div className="side_div">
-            <div className="account_info">
-              <Link href="/Products">Products</Link>
-            </div>
-            <div className="cart_div">
-              <FaShoppingCart />
-              <p>Cart</p>
-            </div>
-            <div className="login">
-              <Link href="./login">Login</Link>
-            </div>
-            <div className="register">
-              <Link href="./register">Signup</Link>
-            </div>
+            {!isLoggedIn && (
+              <>
+                <div className="account_info">
+                  <Link href="/Login">Login</Link>
+                </div>
+                <div className="register">
+                  <Link href="/Register">Signup</Link>
+                </div>
+              </>
+            )}
+
+            {isLoggedIn && (
+              <>
+                <div className="account_info">
+                  <Link href="/Products">Products</Link>
+                </div>
+                <div className="cart_div">
+                  <FaShoppingCart />
+                  <p>Cart</p>
+                </div>
+                <div className="account_logout">
+                  <select
+                    name=""
+                    id=""
+                    value={selectedOption}
+                    onChange={handleChange}
+                    className="Ubutton"
+                  >
+                    <option value="hey" disabled hidden>
+                      Hey, Owner
+                    </option>
+                    <option value="edit">Edit Profile</option>
+                    <option value="orders">My Orders</option>
+                    <option value="logout">Logout</option>
+                  </select>
+                  {selectedOption === "edit" && (
+                    <div className="edit_profile_modal">
+                      <div className="Uprofile_card">
+                        <button className="close_btn" onClick={closeModal}>
+                          <FaTimes />
+                        </button>
+                        <form action="#">
+                          <div className="Bikes_details">
+                            <div className="input_pox">
+                              <span className="details">Name</span>
+                              <input type="text" required />
+                            </div>
+                            <div className="input_pox">
+                              <span className="details">Gmail</span>
+                              <input type="text" required />
+                            </div>
+                            <div className="input_pox">
+                              <span className="details">Address</span>
+                              <input type="text" required />
+                            </div>
+                            <div className="input_pox">
+                              <span className="details">City</span>
+                              <input type="text" required />
+                            </div>
+                            <div className="update_btn">
+                              <button type="submit">Update Profile</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

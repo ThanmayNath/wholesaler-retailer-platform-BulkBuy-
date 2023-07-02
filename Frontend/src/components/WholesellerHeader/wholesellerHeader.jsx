@@ -19,6 +19,9 @@ const WholesellerHeader = () => {
       disableScroll();
     } else if (selectedValue === "logout") {
       window.location.href = "/"; // Redirect to the home page
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("user");
     }
   };
   const closeModal = () => {
@@ -74,14 +77,6 @@ const WholesellerHeader = () => {
             </button>
             <form action="#">
               <div className="Bikes_details">
-                <div className="input_pox">
-                  <span className="datails">Name</span>
-                  <input type="text" required />
-                </div>
-                <div className="input_pox">
-                  <span className="datails">Gmail</span>
-                  <input type="text" required />
-                </div>
                 <div className="input_pox">
                   <span className="datails">Address</span>
                   <input type="text" required />

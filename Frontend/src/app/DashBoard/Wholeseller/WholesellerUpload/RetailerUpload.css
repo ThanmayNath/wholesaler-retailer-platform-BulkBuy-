@@ -66,6 +66,7 @@ form .Product_details .input_pox {
   font-family: inherit;
   margin-top: 10px;
   text-align: start;
+
 }
 .input_pox textarea {
   height: 70px;
@@ -80,7 +81,8 @@ form .Product_details .input_pox {
   margin-top: 10px;
   text-align: start;
   resize: none;
-  margin-right: 150px;;
+  margin-right: 150px;
+  width: 329px;
 }
 
 .upload_btn {
@@ -90,12 +92,23 @@ form .Product_details .input_pox {
 
 .upload_btn button {
   border-radius: 15px;
-  padding: 14px 16px;
+  padding: 18px 36px;
   border: none;
   background-color: #ff3f5b;
   color: white;
   font-weight: 700;
   font-size: 18px;
   margin-top: 30px;
-  margin-right: 70px;
+  margin-right: 40px;
+}
+
+.input_pox select {
+  padding: 30px 32px;
+  margin-right: 95px;
+  margin-top: 7px;
+  border: none;
+  background-color: #c0dbea;
+  border-radius: 10px;
+  font-size: 18px;
+  color: rgb(147, 147, 147);
 }
