@@ -2,27 +2,39 @@
 import "./Products.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState, useEffect } from "react";
-import Product_cards from "@src/utils/Product_data";
 import Image from "next/image";
-import Link from "next/link";
 import axios from "axios";
 import categories from "@src/utils/categories";
 import { isAuthenticated } from "@src/utils/auth";
 import Login from "../Login/page";
+import { toast } from "react-toastify";
+
 export default function Products() {
-  const [Products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [activeButton, setActiveButton] = useState("All Products");
   const [showProductDetails, setProductDetails] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductIndex, setSelectedProductIndex] = useState(null);
-
-  const [productQuantities, setProductQuantities] = useState(
-    Product_cards.map(() => ({ quantity: 5 }))
-  );
+  const [productQuantities, setProductQuantities] = useState([]);
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
 
   // protected route for products page
   const [authenticated, setAuthenticated] = useState(false);
+
   useEffect(() => {
+    const fetchAllProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/products");
+        console.log(res.data);
+        setProducts(res.data);
+        setProductQuantities(res.data.map(() => ({ quantity: 5 })));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAllProducts();
+
     const isAuthenticatedUser = isAuthenticated();
     setAuthenticated(isAuthenticatedUser);
 
@@ -34,21 +46,10 @@ export default function Products() {
   if (!authenticated) {
     return <Login />;
   }
-  useEffect(() => {
-    const featchAllNotes = async () => {
-      try {
-        const res = await axios.get("http://localhost:8800/products");
-        console.log(res.data);
-        setProducts(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    featchAllNotes();
-  }, []);
 
-  const activateButton = (buttonText) => {
+  const activateButton = (buttonText, categoryId) => {
     setActiveButton(buttonText);
+    setActiveCategoryId(categoryId);
   };
 
   const toggleProductDetails = (product, index) => {
@@ -62,7 +63,7 @@ export default function Products() {
       const updatedQuantities = [...prevQuantities];
       updatedQuantities[index] = {
         ...updatedQuantities[index],
-        quantity: updatedQuantities[index].quantity + 5,
+        quantity: updatedQuantities[index].quantity + 1,
       };
       return updatedQuantities;
     });
@@ -74,7 +75,7 @@ export default function Products() {
         const updatedQuantities = [...prevQuantities];
         updatedQuantities[index] = {
           ...updatedQuantities[index],
-          quantity: updatedQuantities[index].quantity - 5,
+          quantity: updatedQuantities[index].quantity - 1,
         };
         return updatedQuantities;
       }
@@ -82,10 +83,42 @@ export default function Products() {
     });
   };
 
-  const filteredProducts =
-    activeButton === "All Products"
-      ? Products
-      : Products.filter((product) => product.category_id === activeButton);
+  const filteredProducts = activeCategoryId
+    ? products.filter((product) => product.category_id === activeCategoryId)
+    : products;
+
+  // const filteredProducts =
+  //   activeButton === "All Products"
+  //     ? products
+  //     : products.filter((product) => product.category_id === activeButton);
+
+  const productadded = async (quantity, product_id) => {
+    const retailer_id = localStorage.getItem("userId");
+
+    try {
+      const res = await axios.post("http://localhost:8800/cart/add", {
+        retailer_id,
+        quantity,
+        product_id,
+      });
+      if (res.status === 200) {
+        console.log(res.data.message);
+        toast.success(res.data.message, {
+          icon: "🛒",
+          position: "top-center",
+          autoClose: 4000,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+      }
+      console.log("Cart Add Response:", response.data);
+      // Handle the response as needed
+    } catch (error) {
+      console.error("Cart Add Error:", error);
+      // Handle the error as needed
+    }
+  };
 
   return (
     <div className="Products_main">
@@ -104,7 +137,7 @@ export default function Products() {
           {categories.map((filter) => (
             <button
               key={filter.id}
-              onClick={() => activateButton(filter.name)}
+              onClick={() => activateButton(filter.name, filter.id)}
               className={activeButton === filter.name ? "active" : ""}
             >
               {filter.name}
@@ -113,7 +146,7 @@ export default function Products() {
         </div>
       </div>
 
-      {/* product card  */}
+      {/* product card */}
       <div className="product_card">
         {filteredProducts.map((product, index) => (
           <div className="p_card" key={product.product_id}>
@@ -136,24 +169,36 @@ export default function Products() {
             </div>
             <h2>{product.product_name}</h2>
             <div className="cart_pricediv">
-              <div className="p_price">${product.product_price}</div>
+              <div className="p_price">₹{product.product_price}</div>
               <div className="cart_add">
                 <button className="add_btn" onClick={() => addCart(index)}>
                   +
                 </button>
-                {productQuantities[index].quantity}
+                <div className="q-selected">
+                  {productQuantities[index].quantity}
+                </div>
                 <button className="add_btn" onClick={() => minusCart(index)}>
                   -
                 </button>
               </div>
             </div>
-            <Link className="Cart_btn" href="/cart">
-              Add to Cart
-            </Link>
+            <div className="p_addtocart">
+              <button
+                className="p_btn"
+                onClick={() =>
+                  productadded(
+                    productQuantities[index].quantity,
+                    product.product_id
+                  )
+                }
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         ))}
       </div>
-      {/* MODAL CODE FOR PRODUCT CARD  */}
+      {/* MODAL CODE FOR PRODUCT CARD */}
       {showProductDetails && selectedProduct && (
         <div className="modalp">
           <div className="productdetails_modal">
@@ -178,7 +223,7 @@ export default function Products() {
                       <div className="product_thumbnail" key={thumbnailIndex}>
                         <Image
                           className="extra_img"
-                          src={selectedProduct.image}
+                          src={`http://localhost:8800/${selectedProduct.product_image_url}`}
                           width={100}
                           height={100}
                         />
@@ -192,9 +237,15 @@ export default function Products() {
                 <div className="p_title">
                   <h2>{selectedProduct.product_name}</h2>
                 </div>
-                <div className="p_price">${selectedProduct.product_price}</div>
+                <div className="p_price">₹{selectedProduct.product_price}</div>
                 <div className="p_cat">
-                  Category: {selectedProduct.category}
+                  Available Stock: {selectedProduct.product_quantity}
+                </div>
+                <div className="p_details">
+                  <p>Product Details</p>
+                  <div className="p_des">
+                    {selectedProduct.product_description}
+                  </div>
                 </div>
                 <div className="p_cartdiv">
                   <div className="p_cart">
@@ -215,18 +266,17 @@ export default function Products() {
                     </button>
                   </div>
                   <div className="p_addtocart">
-                    <button className="p_btn">Add to Cart</button>
-                  </div>
-                </div>
-                <div className="p_availablestock">
-                  Available Stock:{" "}
-                  {500 - productQuantities[selectedProductIndex].quantity}
-                </div>
-                <div className="p_details">
-                  <p>Product Details</p>
-                  <div className="p_des">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Neque, quasi?
+                    <button
+                      className="p_btn"
+                      onClick={() =>
+                        productadded(
+                          productQuantities[selectedProductIndex].quantity,
+                          selectedProduct.product_id
+                        )
+                      }
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>
@@ -234,9 +284,6 @@ export default function Products() {
           </div>
         </div>
       )}
-      <div className="view_more">
-        <button>SHOW MORE</button>
-      </div>
     </div>
   );
 }

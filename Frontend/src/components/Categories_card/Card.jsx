@@ -52,7 +52,7 @@ const Card = () => {
             </div>
             <div className="card_text">{card.description}</div>
             <div className="card_button">
-              <Link href="/shop">View Products</Link>
+              <Link href="/Products">View Products</Link>
             </div>
             <div className="card_image">
               <Image

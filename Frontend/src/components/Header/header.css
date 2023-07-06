@@ -112,10 +112,7 @@
   border: none;
   text-decoration: none;
 }
-/* .login a,
-.register a {
 
-} */
 
 .cart_div {
   color: white;
@@ -123,6 +120,10 @@
   display: flex;
   align-items: center;
   gap: 15px;
+}
+.cart_div a{
+  color: white;
+  text-decoration: none;
 }
 
 .logout_section select {

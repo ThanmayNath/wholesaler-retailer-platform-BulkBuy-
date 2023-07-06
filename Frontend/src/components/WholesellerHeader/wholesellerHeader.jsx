@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
 const WholesellerHeader = () => {
-  const Retailer_name = "Thanmay";
+  const Wholealer_name = localStorage.getItem("userName");
 
   const [selectedOption, setSelectedOption] = useState("hey");
   const [showModal, setShowModal] = useState(false);
@@ -61,7 +61,7 @@ const WholesellerHeader = () => {
               onChange={handleChange}
             >
               <option value="hey" disabled hidden>
-                Hey, {Retailer_name}
+                Hey, {Wholealer_name}
               </option>
               <option value="edit">Edit Profile</option>
               <option value="logout">Logout</option>

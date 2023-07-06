@@ -21,7 +21,7 @@ const hero = () => {
                 </p>
               </div>
               <div className="browse_bottom">
-                <Link href="/product">Browse Product</Link>
+                <Link href="/Products">Browse Product</Link>
               </div>
             </ScrollReveal>
           </div>

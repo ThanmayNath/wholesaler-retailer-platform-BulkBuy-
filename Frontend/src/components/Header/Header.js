@@ -19,6 +19,12 @@ const Header = () => {
       setIsLoggedIn(false);
     }
   }, [userType]);
+
+  const closeModal = () => {
+    setSelectedOption("hey");
+    setShowModal(false);
+  };
+  
   const handleChange = (e) => {
     const selectedValue = e.target.value;
     setSelectedOption(selectedValue);
@@ -34,6 +40,7 @@ const Header = () => {
       setIsLoggedIn(false);
     }
   };
+
   return (
     <>
       <div className="main">
@@ -71,7 +78,7 @@ const Header = () => {
                   <Link href="/Login">Login</Link>
                 </div>
                 <div className="register">
-                  <Link href="/Register">Signup</Link>
+                  <Link href="/register">Signup</Link>
                 </div>
               </>
             )}
@@ -83,7 +90,7 @@ const Header = () => {
                 </div>
                 <div className="cart_div">
                   <FaShoppingCart />
-                  <p>Cart</p>
+                  <Link href="/Cart">Cart</Link>
                 </div>
                 <div className="account_logout">
                   <select
@@ -94,7 +101,7 @@ const Header = () => {
                     className="Ubutton"
                   >
                     <option value="hey" disabled hidden>
-                      Hey, Owner
+                      Hey, {localStorage.getItem("userName")}
                     </option>
                     <option value="edit">Edit Profile</option>
                     <option value="orders">My Orders</option>

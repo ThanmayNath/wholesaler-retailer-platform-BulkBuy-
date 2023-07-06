@@ -3,17 +3,17 @@ import "./globals.css";
 import Header from "@src/components/Header/Header";
 import Footer from "@src/components/Footer/Footer";
 import { useState, useEffect } from "react";
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "@src/components/Loader/Loading";
 
 export default function MainLayout({ children }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -26,7 +26,7 @@ export default function MainLayout({ children }) {
       <body>
         {isLoading ? (
           <div className="loader-wrapper">
-            <ClimbingBoxLoader color="#3A2794" loading={isLoading} size={50} />
+            <Loader/>
           </div>
         ) : (
           <>

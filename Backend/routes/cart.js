@@ -11,7 +11,6 @@ router.get("/:id", async (req, res) => {
   try {
     const data = await db.query(query, values);
     const result = data.rows;
-    //console.log(result);
     return res.send(result).status(200);
   } catch (error) {
     console.log(error);
@@ -25,7 +24,7 @@ router.post("/add", async (req, res) => {
         VALUES ($1, $2, $3)`;
   try {
     await db.query(query, values);
-    res.status(200).json({ mesage: "Added to Cart successfully." });
+    res.status(200).json({ message: "Added to Cart successfully." });
   } catch (error) {
     console.log(error);
     res

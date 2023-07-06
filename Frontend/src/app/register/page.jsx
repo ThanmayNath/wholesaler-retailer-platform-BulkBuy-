@@ -1,34 +1,88 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./register.css";
 import Link from "next/link";
 import Image from "next/image";
-const login = () => {
-  // State variables
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const indianphone = /^[6-9]\d{9}$/;
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handleSignup = async (e, endpoint) => {
+    e.preventDefault();
+    if (!indianphone.test(phone)) {
+      toast.error("Please enter a valid Indian phone number", {
+        position: "top-center",
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(email);
+
+    if (!isValidEmail) {
+      toast.error("Please enter a valid email address", {
+        position: "top-center",
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return;
+    }
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+      number: phone,
+    };
+    try {
+      const res = await axios.post(endpoint, data);
+      if (res.status === 200) {
+        console.log(res.data.message);
+        toast.success(res.data.message, {
+          icon: "🚀",
+          position: "top-center",
+          autoClose: 4000,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+      }
+      console.log(res.error);
+      console.log(res.status); // Handle the response as needed
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <div className="signup_div">
         <div className="signup_form_div">
-
           <div className="register_image">
-            <Image src="/register.png" width={700} height={400}></Image>
+            <Image src="/register.png" width={700} height={400} />
           </div>
           <div className="signup_form">
             <h2 className="register_header">Sign Up</h2>
             <form action="">
-              <div class="user_details">
-                <div class="input_form">
+              <div className="user_details">
+                <div className="input_form">
                   <label htmlFor="text">Name</label>
                   <input
                     type="text"
@@ -39,7 +93,7 @@ const login = () => {
                     required
                   />
                 </div>
-                <div class="input_form">
+                <div className="input_form">
                   <label htmlFor="email">Email</label>
                   <input
                     type="email"
@@ -50,7 +104,7 @@ const login = () => {
                     required
                   />
                 </div>
-                <div class="input_form">
+                <div className="input_form">
                   <label htmlFor="password">Password</label>
                   <input
                     type={showPassword ? "text" : "password"}
@@ -61,10 +115,7 @@ const login = () => {
                     required
                   />
                   {showPassword ? (
-                    <FaEye
-                      className="eye"
-                      onClick={togglePasswordVisibility}
-                    />
+                    <FaEye className="eye" onClick={togglePasswordVisibility} />
                   ) : (
                     <FaEyeSlash
                       className="eye_slash"
@@ -72,7 +123,7 @@ const login = () => {
                     />
                   )}
                 </div>
-                <div class="input_form">
+                <div className="input_form">
                   <label htmlFor="number">Phone no</label>
                   <input
                     type="number"
@@ -86,22 +137,26 @@ const login = () => {
               </div>
               <button
                 type="submit"
-                // onClick={handleUserLogin}
                 className="login_button"
+                onClick={(e) =>
+                  handleSignup(e, "http://localhost:8800/retailer/reg")
+                }
               >
                 Retailer Signup
               </button>
               <button
                 type="submit"
-                // onClick={handleOwnerLogin}
                 className="login_button"
+                onClick={(e) =>
+                  handleSignup(e, "http://localhost:8800/wholesaler/reg")
+                }
               >
-                Wholeseller SignUp
+                Wholesaler Signup
               </button>
             </form>
 
             <div className="already_acc">
-              <p>Already have an account ?</p>
+              <p>Already have an account?</p>
               <Link href="./login">Login here</Link>
             </div>
           </div>
@@ -111,4 +166,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Register;
