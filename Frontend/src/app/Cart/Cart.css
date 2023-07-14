@@ -32,13 +32,13 @@
   gap: 1rem;
 }
 .cart_div {
-    width: 80%;
-    height: 89%;
-    overflow: auto;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    padding: 10px;
+  width: 80%;
+  height: 89%;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 10px;
 }
 .cart_card {
   height: 150px;
@@ -50,8 +50,8 @@
   border-radius: 20px;
   border: 0.5px solid rgb(226, 226, 226);
 }
-.cart_card:hover{
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+.cart_card:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .cart_image {
   width: 200px;
@@ -83,14 +83,14 @@
   font-size: 17px;
   margin: 5px 0px;
 }
-.cart_pricing{
-    height: 100%;
-    margin-left: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    justify-content: center;
+.cart_pricing {
+  height: 100%;
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
 }
 .cart_add {
   display: flex;
@@ -108,43 +108,41 @@
   border-color: #3b66ff;
 }
 
-
-
 .total_div {
   width: 20%;
   height: 84%;
   display: flex;
   align-items: end;
 }
-.payment_main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 2rem;
-    margin-bottom: 20px;
+.payment_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  margin-bottom: 20px;
 }
-.grand_total{
-    display: flex;
-    justify-content: space-between;
-    width: 85%;
+.grand_total {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
 }
-.total{
-    font-weight: 500;
-    font-size: 16px;
+.total {
+  font-weight: 500;
+  font-size: 16px;
 }
-.total_price{
-    font-weight: 600;
-    font-size: 16px;
+.total_price {
+  font-weight: 600;
+  font-size: 16px;
 }
-.payment_div button{
- padding: 10px 60px;
- font-size: 18px;
- font-weight: 500;
- background-color: rgb(98, 98, 255);
- color: white;
- border: none;
- border-radius: 5px;
- outline: none;
+.payment_div a {
+  padding: 10px 60px;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: rgb(98, 98, 255);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  outline: none;
 }

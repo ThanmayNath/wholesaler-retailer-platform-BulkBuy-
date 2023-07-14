@@ -1,0 +1,178 @@
+p {
+  padding: 0px;
+  margin: 10px;
+}
+.billing_loader{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.billing_main {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.billing_side {
+  /* border: 2px solid rgb(161, 161, 161); */
+  height: 95%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.billing_div {
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+}
+.order_heading h2 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 10px 10px;
+}
+
+.order_heading span {
+  font-size: 20px;
+  color: blue;
+  font-weight: 500;
+}
+.order_heading .company {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgb(156, 156, 156);
+  letter-spacing: 3px;
+  border-bottom: 2px solid rgb(181, 181, 181);
+}
+.billing_details {
+  width: 60%;
+  height: 170px;
+}
+.billing_details .billing_head {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(62, 62, 62);
+}
+.billing_details .buyer_name {
+  font-weight: 500;
+  font-size: 19px;
+}
+.billing_details .address {
+  width: 50%;
+}
+.billing_details .billing_date {
+  margin: 30px 10px;
+  font-weight: 500;
+}
+.order_itemsdiv {
+  width: 100%;
+  height: 100%;
+  /* border: 2px solid red; */
+}
+.order_itemshead {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 0px;
+  border-bottom: 2px solid #dbdbdb;
+}
+.itemstitle {
+  font-weight: 400;
+  color: #acacac;
+  letter-spacing: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  width: 95%;
+  margin-left: 11px;
+  border-bottom: 2px solid #dbdbdb;
+}
+.itemPrice_qty {
+  display: flex;
+  gap: 8rem;
+  margin-left: 22rem;
+  padding: 7px 0px;
+}
+.items_list {
+  display: flex;
+  font-weight: 400;
+  color: #4f4f4f;
+  letter-spacing: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 40px;
+  width: 95%;
+  margin-left: 3px;
+  height: 10vh;
+  font-size: 18px;
+  font-weight: 500;
+}
+.items_innerdiv {
+  display: flex;
+  flex-direction: column;
+}
+.itemP_qty {
+  display: flex;
+  gap: 8.5rem;
+  margin-left: 22.5rem;
+  padding: 12px 0px;
+}
+.items_list .item_t {
+  margin-right: 50px;
+}
+
+.grandtotal {
+  height: 30vh;
+  border-top: 2px solid #dbdbdb;
+}
+.tax_div {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 47px;
+}
+.grand_div {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 47px;
+  border-bottom: 2px solid #dbdbdb;
+}
+.tax_div .gst {
+  font-weight: 600;
+  font-size: 19px;
+}
+.Tax_charge {
+  font-weight: 600;
+}
+.total_amount {
+  font-weight: 600;
+  font-size: 20px;
+}
+.grandtitle {
+  font-weight: 600;
+  font-size: 19px;
+}
+.final_payment{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+} 
+.Payment{
+  margin-right: 50px;
+  padding: 15px 60px;
+  border-radius: 13px;
+  background: #2f66ff;
+  border: none;
+  font-size: 19px;
+  color: white;
+  transition: 0.3s all ease;
+}
+.Payment:hover{
+    background: #1150ff;
+    
+}

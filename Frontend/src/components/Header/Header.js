@@ -24,7 +24,7 @@ const Header = () => {
     setSelectedOption("hey");
     setShowModal(false);
   };
-  
+
   const handleChange = (e) => {
     const selectedValue = e.target.value;
     setSelectedOption(selectedValue);
@@ -35,6 +35,10 @@ const Header = () => {
       localStorage.removeItem("user");
       localStorage.removeItem("userId");
       localStorage.removeItem("userName");
+      localStorage.removeItem("isBillingEffectExecuted");
+      localStorage.removeItem("orderId");
+      localStorage.removeItem("gst");
+      localStorage.removeItem("grandTotal");
       setUserType(localStorage.getItem("user"));
       window.location.reload();
       setIsLoggedIn(false);

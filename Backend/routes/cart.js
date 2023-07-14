@@ -80,8 +80,13 @@ router.post("/proced/:id", async (req, res) => {
     SET total_amount = $1, payment_status=$2
     WHERE order_id = $3`;
     await db.query(updateTotalamount, [total_amount, status, order_id]);
+    const GST=(5/100)*total_amount;
+    total_amount=GST+total_amount;
     res.status(200).json({
       mesage: "Transaction to order itemns is successfully completed.",
+      orderId:order_id,
+      gst:GST,
+      grandTotal:total_amount,
     });
   } catch (error) {
     console.log(error);
@@ -89,8 +94,8 @@ router.post("/proced/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
-  const values = [req.body.quantity, req.params.id];
+router.patch("", async (req, res) => {
+  const values = [req.body.quantity, req.body.id];
   const query = `UPDATE public.cart
   SET quantity = $1
   WHERE cart_id = $2`;

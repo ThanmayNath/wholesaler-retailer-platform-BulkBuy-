@@ -112,6 +112,7 @@ export default function Products() {
           draggable: true,
         });
       }
+      localStorage.setItem("isBillingEffectExecuted", "false");
       console.log("Cart Add Response:", response.data);
       // Handle the response as needed
     } catch (error) {
