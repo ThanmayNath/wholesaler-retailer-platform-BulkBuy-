@@ -215,8 +215,8 @@ export default function Products() {
                     <Image
                       className="main_img"
                       src={`http://localhost:8800/${selectedProduct.product_image_url}`}
-                      width={341}
-                      height={231}
+                      width={421}
+                      height={255}
                     />
                   </div>
                   <div className="product_thumbnail_grid">

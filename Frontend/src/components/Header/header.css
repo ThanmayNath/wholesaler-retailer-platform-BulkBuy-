@@ -14,7 +14,8 @@
   margin: 0 auto;
   height: 100%;
   display: flex;
-  justify-content: space-around;
+  padding: 0px 110px;
+  justify-content: space-between;
   align-items: center;
 }
 .logo {
@@ -98,7 +99,7 @@
   color: white;
   padding: 10px 16px;
   border-radius: 10px;
-  background-color: rgb(49, 187, 21);
+  background-color: rgb(221, 43, 23);
   font-size: 16px;
   border: none;
   text-decoration: none;
@@ -113,7 +114,6 @@
   text-decoration: none;
 }
 
-
 .cart_div {
   color: white;
   font-size: 16px;
@@ -121,7 +121,7 @@
   align-items: center;
   gap: 15px;
 }
-.cart_div a{
+.cart_div a {
   color: white;
   text-decoration: none;
 }
@@ -235,9 +235,101 @@ form .Bikes_details .input_pox {
   color: white;
   padding: 10px 16px;
   border-radius: 10px;
-  background-color: rgb(49, 187, 21);
+  background-color: rgb(69, 224, 18);
   font-size: 16px;
   border: none;
   text-decoration: none;
   font-weight: 600;
+}
+
+/* order div  */
+
+.order_modal {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 30px;
+  z-index: 1000;
+  background: rgba(52, 58, 65, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.order_card {
+  width: 62%;
+  height: 75%;
+  position: absolute;
+  top: 10%;
+  right: 20%;
+  background: white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+}
+.Inner_div {
+  height: 600px;
+  width: 900px;
+  text-align: center;
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.order_heading {
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.close_order_btn {
+  position: absolute;
+  left: 72.3%;
+  top: 12.2%;
+  height: 40px;
+  width: 40px;
+  z-index: 1000;
+  border: none;
+  font-size: 23px;
+  color: red;
+  background: transparent;
+}
+.order_card_div {
+  height: 500px;
+  width: 900px;
+  text-align: center;
+  /* border: 2px solid red; */
+  overflow-y: scroll;
+  /* background-color: rgb(216, 242, 242); */
+}
+.orders {
+  width: 97%;
+  height: 110px;
+
+  border-radius: 5px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.orders > .order_id {
+  width: 200px;
+}
+label {
+  font-size: 19px;
+  font-weight: 600;
+  /* color: white; */
+}
+.p_total {
+  font-size: 17px;
+  font-weight: 500;
+}
+.p_staus {
+  font-size: 17px;
+  font-weight: 500;
 }

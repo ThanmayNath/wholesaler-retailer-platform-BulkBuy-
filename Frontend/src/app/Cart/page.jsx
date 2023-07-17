@@ -157,11 +157,11 @@ const Cart = () => {
                       </button>
                     </div>
                     <div className="total_price">
-                      {getTotalPrice(item.quantity, item.product_price)}
+                      Rs {getTotalPrice(item.quantity, item.product_price)}
                     </div>
                     <div className="remove_button">
                       <button onClick={() => handleRemoveIteam(item.cart_id)}>
-                        Remove
+                        Remove Item
                       </button>
                     </div>
                   </div>
@@ -175,7 +175,6 @@ const Cart = () => {
                   <div className="total_price">Rs {grand_total()}/-</div>
                 </div>
                 <div className="payment_div">
-                  {/* <button onClick={handleSubmit}>Proceed To Pay</button> */}
                   <Link href="/Billing">Proceed to Pay </Link>
                 </div>
               </div>

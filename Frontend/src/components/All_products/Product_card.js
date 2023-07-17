@@ -132,7 +132,7 @@ const Product_card = () => {
           </div>
         </div>
         <div className="load_more">
-          <Link href={"/loadmore"}>Load More</Link>
+          <Link href={"/Products"}>Load More</Link>
         </div>
         <div className="product_carddiv">
           {/* Render the fetched products */}
@@ -184,7 +184,7 @@ const Product_card = () => {
                     )
                   }
                 >
-                  Add to Cart
+                  Add To Cart
                 </button>
               </div>
             </div>
@@ -271,9 +271,6 @@ const Product_card = () => {
                     </button>
                   </div>
                   <div className="p_addtocart">
-                    {/* <button className="p_btn" onClick={productadded}>
-                      Add to Cart
-                    </button> */}
                     <button
                       className="p_btn"
                       onClick={() =>

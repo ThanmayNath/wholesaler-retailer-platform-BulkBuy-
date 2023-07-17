@@ -51,7 +51,7 @@ const WholesellerHeader = () => {
             <Link href="/DashBoard/Wholeseller/WholesellerProducts">
               LISTED PRODUCTS
             </Link>
-            <Link href="./">EARNING</Link>
+            <Link href="/DashBoard/Wholeseller/Earning">EARNING</Link>
           </div>
           <div className="logout_section">
             <select

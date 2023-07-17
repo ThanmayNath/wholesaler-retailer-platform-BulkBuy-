@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import "./header.css";
 
 const Header = () => {
@@ -11,6 +12,7 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("user"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [orderDetails, setOrderDetails] = useState([]);
   useEffect(() => {
     if (userType === "retailer") {
       setIsLoggedIn(true);
@@ -23,6 +25,18 @@ const Header = () => {
   const closeModal = () => {
     setSelectedOption("hey");
     setShowModal(false);
+  };
+
+  const featchOrderDetails = async () => {
+    console.log("api helloooo");
+    try {
+      const id = localStorage.getItem("userId");
+      const res = await axios.get(`http://localhost:8800/orders/${id}`);
+      console.log(res.data);
+      setOrderDetails(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (e) => {
@@ -42,6 +56,8 @@ const Header = () => {
       setUserType(localStorage.getItem("user"));
       window.location.reload();
       setIsLoggedIn(false);
+    } else if (selectedValue === "orders") {
+      featchOrderDetails();
     }
   };
 
@@ -140,6 +156,70 @@ const Header = () => {
                             </div>
                           </div>
                         </form>
+                      </div>
+                    </div>
+                  )}
+                  {/* order card for retailer  */}
+                  {selectedOption === "orders" && (
+                    <div className="order_modal">
+                      <div className="close_order_btn">
+                        <button onClick={closeModal}>Close</button>
+                      </div>
+                      <div className="order_card">
+                        <div className="Inner_div">
+                          <h2 className="order_heading">My Orders</h2>
+                          <div className="order_card_div">
+                            {/* <div className="orders">
+                              <div className="order_id">
+                                <label>Order Id</label>
+                                <h3>#39048jfdg</h3>
+                              </div>
+                              <div className="p_date">
+                                <label>Order Date</label>
+                                <p>14/07/2023</p>
+                              </div>
+                              <div className="p_total">
+                                <label>Total Amount (paid)</label>
+                                <p> Rs 13400</p>
+                              </div>
+                              <div className="p_staus">
+                                <label>Order Status</label>
+                                <p>Pending</p>
+                              </div>
+                              <div className="p_name">
+                                <p></p>
+                              </div>
+                            </div> */}
+                            {orderDetails.map((order, index) => (
+                              <div className="orders" key={index}>
+                                <div className="order_id">
+                                  <label>Order Id</label>
+                                  <h3>{order.order_id}</h3>{" "}
+                                  {/* Assuming the order object has an "id" property */}
+                                </div>
+                                <div className="p_date">
+                                  <label>Order Date</label>
+                                  <p>{order.order_date}</p>{" "}
+                                  {/* Assuming the order object has a "date" property */}
+                                </div>
+                                <div className="p_total">
+                                  <label>Total Amount (paid)</label>
+                                  <p>Rs {order.total_amount}</p>{" "}
+                                  {/* Assuming the order object has a "totalAmount" property */}
+                                </div>
+                                <div className="p_staus">
+                                  <label>Order Status</label>
+                                  <p>{order.order_status}</p>{" "}
+                                  {/* Assuming the order object has a "status" property */}
+                                </div>
+                                <div className="p_name">
+                                  <p>{order.name}</p>{" "}
+                                  {/* Assuming the order object has a "name" property */}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}

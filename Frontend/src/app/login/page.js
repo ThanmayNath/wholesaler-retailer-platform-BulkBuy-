@@ -116,7 +116,7 @@ const login = () => {
                     handleLogin(e, "http://localhost:8800/retailer/login")
                   }
                 >
-                  Retiler Login
+                  Retailer Login
                 </button>
                 <button
                   type="submit"
@@ -125,7 +125,7 @@ const login = () => {
                     handleLogin(e, "http://localhost:8800/wholesaler/login")
                   }
                 >
-                  Wholesaler Login
+                  Wholeseller Login
                 </button>
               </form>
             </div>

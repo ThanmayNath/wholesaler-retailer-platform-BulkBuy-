@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import "./RetailerUpload.css";
+import "./WholesellerUpload.css";
 import categories from "@src/utils/categories";
 import { toast } from "react-toastify";
 

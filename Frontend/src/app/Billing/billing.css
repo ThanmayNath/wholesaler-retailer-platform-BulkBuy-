@@ -2,11 +2,11 @@ p {
   padding: 0px;
   margin: 10px;
 }
-.billing_loader{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.billing_loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .billing_main {
   height: auto;
@@ -31,6 +31,7 @@ p {
   font-size: 30px;
   font-weight: 600;
   margin: 10px 10px;
+  text-align: start;
 }
 
 .order_heading span {
@@ -44,6 +45,7 @@ p {
   color: rgb(156, 156, 156);
   letter-spacing: 3px;
   border-bottom: 2px solid rgb(181, 181, 181);
+  text-align: start;
 }
 .billing_details {
   width: 60%;
@@ -53,13 +55,18 @@ p {
   font-size: 18px;
   font-weight: 500;
   color: rgb(62, 62, 62);
+  text-align: start;
 }
 .billing_details .buyer_name {
   font-weight: 500;
   font-size: 19px;
+  text-align: start;
 }
 .billing_details .address {
   width: 50%;
+  font-size: 20px;
+  text-align: start;
+  font-weight: 500;
 }
 .billing_details .billing_date {
   margin: 30px 10px;
@@ -74,7 +81,9 @@ p {
   font-size: 18px;
   font-weight: 500;
   padding: 8px 0px;
+  width: 100%;
   border-bottom: 2px solid #dbdbdb;
+  /* border: 1px solid red; */
 }
 .itemstitle {
   font-weight: 400;
@@ -155,14 +164,14 @@ p {
   font-weight: 600;
   font-size: 19px;
 }
-.final_payment{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-} 
-.Payment{
+.final_payment {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.Payment {
   margin-right: 50px;
   padding: 15px 60px;
   border-radius: 13px;
@@ -172,7 +181,6 @@ p {
   color: white;
   transition: 0.3s all ease;
 }
-.Payment:hover{
-    background: #1150ff;
-    
+.Payment:hover {
+  background: #1150ff;
 }

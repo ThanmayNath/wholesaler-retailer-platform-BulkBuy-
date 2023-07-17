@@ -6,7 +6,7 @@ import BillingLoading from "@src/components/BillingLoading/billing";
 import { useRouter } from "next/navigation";
 
 const Billing = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [cartItems, setCartItems] = useState([]);
   const [orderDetails, setOrderDetails] = useState({
     orderId: "",
@@ -119,7 +119,6 @@ const Billing = () => {
           color: "#686CFD",
         },
       };
-
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
       try {
@@ -128,11 +127,12 @@ const Billing = () => {
           retailer_id: localStorage.getItem("userId"),
         });
         console.log(res);
-        localStorage.removeItem("isBillingEffectExecuted");
+        localStorage.setItem("isBillingEffectExecuted", "false");
+        router.push("/");
         localStorage.removeItem("orderId");
         localStorage.removeItem("gst");
         localStorage.removeItem("grandTotal");
-        router.push('/')
+        router.push("/");
       } catch (error) {
         console.log(error);
       }
@@ -166,10 +166,10 @@ const Billing = () => {
                     {localStorage.getItem("userName")}
                   </p>
                   <p className="address">
-                    subash Palley, lankapara rd , Jalpaiguri, West Bengal,
-                    725204
+                    Address: subash Palley, lankapara rd , Jalpaiguri, West
+                    Bengal, 725204
                   </p>
-                  <div className="billing_date">Order Date: {currentDate}</div>
+                  {/* <div className="billing_date">Order Date: {currentDate}</div> */}
                 </div>
               </div>
               <div className="order_itemsdiv">

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "@src/components/Loader/Loading";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export default function MainLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,13 +21,11 @@ export default function MainLayout({ children }) {
 
   return (
     <html lang="en">
-      <head>
-        {/* Add your meta tags, title, and other head elements here */}
-      </head>
+      <head></head>
       <body>
         {isLoading ? (
           <div className="loader-wrapper">
-            <Loader/>
+            <Loader />
           </div>
         ) : (
           <>
