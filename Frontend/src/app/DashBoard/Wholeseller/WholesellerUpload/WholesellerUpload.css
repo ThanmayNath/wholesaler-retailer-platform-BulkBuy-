@@ -1,7 +1,7 @@
 .retailer_upload {
   height: 90vh;
   /* border: 2px solid red; */
-  background-color: #0A6EBD;
+  background-color: #0a6ebd;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,13 +17,14 @@
   height: 80%;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius:10px;
+  border-radius: 10px;
 }
 
 .retailer_card {
   width: 800px;
   height: 450px;
   margin: 0 auto;
+  padding: 70px;
   /* border: 1px solid rgb(0, 0, 0); */
   text-align: center;
   font-size: 25px;
@@ -67,7 +68,6 @@ form .Product_details .input_pox {
   font-family: inherit;
   margin-top: 10px;
   text-align: start;
-
 }
 .input_pox textarea {
   height: 70px;
@@ -93,9 +93,9 @@ form .Product_details .input_pox {
 
 .upload_btn button {
   border-radius: 15px;
-  padding: 18px 36px;
+  padding: 15px 36px;
   border: none;
-  background-color: #ff3f5b;
+  background-color: #ff4965;
   color: white;
   font-weight: 700;
   font-size: 18px;
@@ -103,6 +103,10 @@ form .Product_details .input_pox {
   margin-right: 40px;
 }
 
+.upload_btn button:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(253, 28, 28);
+}
 .input_pox select {
   padding: 30px 32px;
   margin-right: 95px;
@@ -112,4 +116,47 @@ form .Product_details .input_pox {
   border-radius: 10px;
   font-size: 18px;
   color: rgb(147, 147, 147);
+}
+
+/* complete button  */
+.buttonupload {
+  position: relative;
+  overflow: hidden;
+  height: 2.7rem;
+  padding: 0 4rem;
+  border-radius: 1.5rem;
+  background: #21484d;
+  background-size: 400%;
+  color: #ffffff;
+  margin: 0 auto;
+  border: none;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.buttonupload:hover::before {
+  transform: scaleX(1);
+}
+
+.button-content {
+  position: relative;
+  z-index: 1;
+}
+
+.buttonupload::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgb(74, 11, 170) 10.8%,
+    rgba(99, 88, 238, 1) 94.3%
+  );
+  transition: all 0.475s;
 }

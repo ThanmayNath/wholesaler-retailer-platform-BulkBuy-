@@ -20,8 +20,46 @@ const Register = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const validatePassword = (password) => {
+    // Regular expressions for password validation
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialSymbol = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(
+      password
+    );
+    const isLengthValid = password.length >= 8;
+
+    return hasLetter && hasNumber && hasSpecialSymbol && isLengthValid;
+  };
+
   const handleSignup = async (e, endpoint) => {
     e.preventDefault();
+
+    if (!/^[A-Za-z]+$/.test(name)) {
+      toast.error("Name should only contain alphabetic characters", {
+        position: "top-center",
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return;
+    }
+    const isValidPassword = validatePassword(password);
+
+    if (!isValidPassword) {
+      toast.error(
+        "Password must have at least 8 characters with letters, numbers, and special symbols",
+        {
+          position: "top-center",
+          autoClose: 4000,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        }
+      );
+      return;
+    }
     if (!indianphone.test(phone)) {
       toast.error("Please enter a valid Indian phone number", {
         position: "top-center",

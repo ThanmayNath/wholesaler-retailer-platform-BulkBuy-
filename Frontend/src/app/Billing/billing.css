@@ -85,6 +85,9 @@ p {
   border-bottom: 2px solid #dbdbdb;
   /* border: 1px solid red; */
 }
+.item {
+  min-width: 350px;
+}
 .itemstitle {
   font-weight: 400;
   color: #acacac;
@@ -117,6 +120,7 @@ p {
   height: 10vh;
   font-size: 18px;
   font-weight: 500;
+  /* border: 1px solid red; */
 }
 .items_innerdiv {
   display: flex;
@@ -125,8 +129,20 @@ p {
 .itemP_qty {
   display: flex;
   gap: 8.5rem;
-  margin-left: 22.5rem;
+  margin-left: 4.5rem;
   padding: 12px 0px;
+  /* border: 2px solid rgb(78, 78, 78); */
+  min-width: 243px;
+}
+.item_p {
+  /* border: 2px solid blue; */
+  margin-left: 14px;
+  padding: 4px;
+}
+.item_q {
+  /* border: 2px solid blue; */
+  margin-left: 14px;
+  padding: 4px;
 }
 .items_list .item_t {
   margin-right: 50px;

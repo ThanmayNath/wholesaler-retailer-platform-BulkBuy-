@@ -6,6 +6,7 @@ import axios from "axios";
 import "./Cart.css";
 import { isAuthenticated } from "@src/utils/auth";
 import Link from "next/link";
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
 const Cart = () => {
@@ -20,7 +21,10 @@ const Cart = () => {
     const fetchAllProducts = async () => {
       try {
         const id = localStorage.getItem("userId");
-        const res = await axios.get(`http://localhost:8800/cart/${id}`);
+        const token = Cookies.get("token");
+        const res = await axios.get(`http://localhost:8000/cart/${id}`, {
+          headers: { "x-access-token": token },
+        });
         console.log(res.data);
         setCartItems(res.data);
         if (localStorage.getItem("isBillingEffectExecuted") === "true") {
@@ -37,10 +41,18 @@ const Cart = () => {
 
   const handleIncrement = async (itemId, Quantity) => {
     try {
-      const response = await axios.patch("http://localhost:8800/cart", {
-        id: itemId,
-        quantity: Quantity + 1,
-      });
+      const token = Cookies.get("token");
+      console.log(token);
+      const response = await axios.patch(
+        "http://localhost:8000/cart",
+        {
+          id: itemId,
+          quantity: Quantity + 1,
+        },
+        {
+          headers: { "x-access-token": token },
+        }
+      );
 
       // Handle the response here if needed
       console.log(response.data);
@@ -63,10 +75,18 @@ const Cart = () => {
   const handleDecrement = async (itemId, Quantity) => {
     if (Quantity > 5) {
       try {
-        const response = await axios.patch("http://localhost:8800/cart", {
-          id: itemId,
-          quantity: Quantity - 1,
-        });
+        const token = Cookies.get("token");
+        console.log(token);
+        const response = await axios.patch(
+          "http://localhost:8000/cart",
+          {
+            id: itemId,
+            quantity: Quantity - 1,
+          },
+          {
+            headers: { "x-access-token": token },
+          }
+        );
 
         // Handle the response here if needed
         console.log(response.data);
@@ -94,7 +114,9 @@ const Cart = () => {
 
   const handleRemoveIteam = async (id) => {
     try {
-      await axios.delete(`http://localhost:8800/cart/${id}`);
+      await axios.delete(`http://localhost:8000/cart/${id}`, {
+        headers: { "x-access-token": Cookies.get("token") },
+      });
       const newCartItems = cartItems.filter((item) => item.cart_id !== id);
       setCartItems(newCartItems);
       localStorage.setItem("isBillingEffectExecuted", "false");
@@ -174,8 +196,15 @@ const Cart = () => {
                   <div className="total">Total Amount</div>
                   <div className="total_price">Rs {grand_total()}/-</div>
                 </div>
-                <div className="payment_div">
+                {/* <div className="payment_div">
                   <Link href="/Billing">Proceed to Pay </Link>
+                </div> */}
+                <div className="payment_div">
+                  {cartItems.length > 0 ? (
+                    <Link href="/Billing">Proceed to Pay</Link>
+                  ) : (
+                    <span className="disabled_link"></span>
+                  )}
                 </div>
               </div>
             </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const Page = () => {
   // modal to edit product price and stock
@@ -17,7 +18,9 @@ const Page = () => {
     const featchAllNotes = async () => {
       const id = localStorage.getItem("userId");
       try {
-        const res = await axios.get(`http://localhost:8800/products/${id}`);
+        const res = await axios.get(`http://localhost:8000/products/${id}`, {
+          headers: { "x-access-token": Cookies.get("token") },
+        });
         console.log(res.data);
         setProducts(res.data);
       } catch (error) {
@@ -60,8 +63,11 @@ const Page = () => {
     try {
       // Send the PUT request to update the product
       const res = await axios.put(
-        "http://localhost:8800/products/update",
-        data
+        "http://localhost:8000/products/update",
+        data,
+        {
+          headers: { "x-access-token": Cookies.get("token") },
+        }
       );
       if (res.status === 200) {
         console.log(res.data.message);

@@ -8,6 +8,7 @@ import categories from "@src/utils/categories";
 import { isAuthenticated } from "@src/utils/auth";
 import Login from "../Login/page";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -24,7 +25,10 @@ export default function Products() {
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/products");
+        const token = Cookies.get("token");
+        const res = await axios.get("http://localhost:8000/products", {
+          headers: { "x-access-token": token },
+        });
         console.log(res.data);
         setProducts(res.data);
         setProductQuantities(res.data.map(() => ({ quantity: 5 })));
@@ -94,13 +98,21 @@ export default function Products() {
 
   const productadded = async (quantity, product_id) => {
     const retailer_id = localStorage.getItem("userId");
+    console.log(retailer_id, quantity, product_id);
+    console.log(typeof retailer_id);
+    console.log(typeof quantity);
+    console.log(typeof product_id);
 
     try {
-      const res = await axios.post("http://localhost:8800/cart/add", {
-        retailer_id,
-        quantity,
-        product_id,
-      });
+      const res = await axios.post(
+        "http://localhost:8000/cart/add",
+        {
+          retailer_id,
+          quantity,
+          product_id,
+        },
+        { headers: { "x-access-token": Cookies.get("token") } }
+      );
       if (res.status === 200) {
         console.log(res.data.message);
         toast.success(res.data.message, {

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import "./login.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const login = () => {
   const router = useRouter();
@@ -27,10 +28,13 @@ const login = () => {
 
     try {
       const res = await axios.post(endpoint, data);
-      const { user, id, name } = res.data;
+      const { user, id, name, address, city, token } = res.data;
+      Cookies.set("token", token);
       localStorage.setItem("user", user);
       localStorage.setItem("userId", id);
       localStorage.setItem("userName", name);
+      localStorage.setItem("address", address);
+      localStorage.setItem("city", city);
 
       if (user === "retailer") {
         window.location.reload();
@@ -49,7 +53,16 @@ const login = () => {
         draggable: true,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      toast.error(error.response.data.message, {
+        icon: "❌",
+        position: "top-center",
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      // console.error(error);
     }
   };
 

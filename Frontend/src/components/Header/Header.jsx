@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import "./header.css";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const router = useRouter();
@@ -13,6 +14,8 @@ const Header = () => {
   const [userType, setUserType] = useState(localStorage.getItem("user"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [orderDetails, setOrderDetails] = useState([]);
+  const [address, setAddress] = useState(localStorage.getItem("address"));
+  const [city, setCity] = useState(localStorage.getItem("city"));
   useEffect(() => {
     if (userType === "retailer") {
       setIsLoggedIn(true);
@@ -31,7 +34,9 @@ const Header = () => {
     console.log("api helloooo");
     try {
       const id = localStorage.getItem("userId");
-      const res = await axios.get(`http://localhost:8800/orders/${id}`);
+      const res = await axios.get(`http://localhost:8000/orders/${id}`, {
+        headers: { "x-access-token": Cookies.get("token") },
+      });
       console.log(res.data);
       setOrderDetails(res.data);
     } catch (error) {
@@ -53,6 +58,8 @@ const Header = () => {
       localStorage.removeItem("orderId");
       localStorage.removeItem("gst");
       localStorage.removeItem("grandTotal");
+      localStorage.removeItem("address");
+      localStorage.removeItem("city");
       setUserType(localStorage.getItem("user"));
       window.location.reload();
       setIsLoggedIn(false);
@@ -61,6 +68,37 @@ const Header = () => {
     }
   };
 
+  const updateProfile = async () => {
+    try {
+      localStorage.setItem("address", address);
+      localStorage.setItem("city", city);
+      const retailer_id = localStorage.getItem("userId");
+      const res = await axios.put(
+        `http://localhost:8800/retailer/updateprofile`,
+        {
+          retailer_id: retailer_id,
+          address: address,
+          city: city,
+        },
+        {
+          headers: { "x-access-token": Cookies.get("token") },
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are zero-indexed, so we add 1
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+
   return (
     <>
       <div className="main">
@@ -68,7 +106,7 @@ const Header = () => {
           <div className="logo">
             <Link href="/">BULKBUY</Link>
           </div>
-          <form action="">
+          {/* <form action="">
             <div className="searchbar_div">
               <select className="product_select" defaultValue="1">
                 <option value="1">All Products</option>
@@ -89,7 +127,7 @@ const Header = () => {
               />
               <FaSearch className="search_icon" />
             </div>
-          </form>
+          </form> */}
 
           <div className="side_div">
             {!isLoggedIn && (
@@ -136,23 +174,30 @@ const Header = () => {
                         <form action="#">
                           <div className="Bikes_details">
                             <div className="input_pox">
-                              <span className="details">Name</span>
-                              <input type="text" required />
-                            </div>
-                            <div className="input_pox">
-                              <span className="details">Gmail</span>
-                              <input type="text" required />
-                            </div>
-                            <div className="input_pox">
                               <span className="details">Address</span>
-                              <input type="text" required />
+                              <input
+                                type="text"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                required
+                              />
                             </div>
                             <div className="input_pox">
                               <span className="details">City</span>
-                              <input type="text" required />
+                              <input
+                                type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                required
+                              />
                             </div>
                             <div className="update_btn">
-                              <button type="submit">Update Profile</button>
+                              <button
+                                type="submit"
+                                onClick={() => updateProfile()}
+                              >
+                                Update Profile
+                              </button>
                             </div>
                           </div>
                         </form>
@@ -199,8 +244,7 @@ const Header = () => {
                                 </div>
                                 <div className="p_date">
                                   <label>Order Date</label>
-                                  <p>{order.order_date}</p>{" "}
-                                  {/* Assuming the order object has a "date" property */}
+                                  <p>{formatDate(order.order_date)}</p>
                                 </div>
                                 <div className="p_total">
                                   <label>Total Amount (paid)</label>

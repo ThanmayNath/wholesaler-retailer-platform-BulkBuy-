@@ -1,6 +1,6 @@
 .wholeseller_header {
   height: 9vh;
-  /* border: 1px solid red; */
+  font-family: sans-serif;
   background-color: #4d25e0;
   position: fixed;
   top: 0;
@@ -38,19 +38,23 @@
   font-size: 17px;
   font-weight: 500;
   transition: 0.4s all ease;
+  /* border: 1px solid red; */
 }
 .menu_section a::after {
   content: "";
-  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 100;
   height: 3px;
   background-color: red;
 }
 .menu_section a::after:hover {
   width: 100%;
 }
-.menu_section a:hover {
-  color: rgba(0, 0, 0, 0.665);
-}
+/* .menu_section a:hover {
+  color: rgba(255, 107, 107, 0.665);
+} */
 .logout_section select {
   margin-left: 50px;
   color: white;
@@ -68,12 +72,37 @@
 .logout_section select option {
   color: white;
   font-size: 19px;
+  padding: 20px;
   font-weight: 500;
   padding: 10px 12px; /* Adjust the padding as needed */
   height: 40px; /* Adjust the height as needed */
   width: 200px; /* Adjust the width as needed */
 }
 
+/* navbar hover  */
+/* stroke */
+nav.stroke ul a,
+nav.fill ul a {
+  position: relative;
+  margin-left: 50px;
+}
+nav.stroke ul a:after,
+nav.fill ul a:after {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ".";
+  color: transparent;
+  background: #aaaaaa;
+  height: 3px;
+  transition: 0.3s all ease;
+}
+nav.stroke ul a:hover:after {
+  width: 100%;
+}
 /* css for modal  */
 
 .edit_profile_modal {
@@ -96,7 +125,8 @@
   background: #ffffff;
   border-radius: 30px;
   padding: 30px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 .Rprofile_card .close_btn {
   position: absolute;

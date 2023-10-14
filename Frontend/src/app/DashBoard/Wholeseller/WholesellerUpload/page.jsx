@@ -36,7 +36,10 @@ const Page = () => {
 
       const res = await axios.post(
         "http://localhost:8800/products/upload",
-        formData
+        formData,
+        {
+          headers: { "x-access-token": Cookies.get("token") },
+        }
       );
       if (res.status === 200) {
         console.log(res.data.message);
@@ -78,7 +81,7 @@ const Page = () => {
         <h2>Upload Products</h2>
         <div className="retailer_card_main">
           <div className="retailer_card">
-            <p>Enter Product Details</p>
+            {/* <p>Enter Product Details</p> */}
             <div className="Upload_div">
               <form>
                 <div className="Product_details">
@@ -119,7 +122,7 @@ const Page = () => {
                       type="file"
                       multiple
                       name=""
-                      id=""  
+                      id=""
                       onChange={handleProductImageChange}
                     />
                   </div>
@@ -137,11 +140,12 @@ const Page = () => {
                   </div>
                   <div className="input_pox">
                     <span className="datails">Category</span>
-                    <select className="categoryp"
+                    <select
+                      className="categoryp"
                       value={selectedCategory}
                       onChange={handleCategoryChange}
                     >
-                      <option  value="">Select a category</option>
+                      <option value="">Select a category</option>
                       {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
@@ -149,11 +153,18 @@ const Page = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="upload_btn">
+
+                  {/* upload button  */}
+
+                  <button class="buttonupload" onClick={handleSubmit}>
+                    <span class="button-content">Upload</span>
+                  </button>
+
+                  {/* <div className="upload_btn">
                     <button type="submit" onClick={handleSubmit}>
                       Upload
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </form>
             </div>

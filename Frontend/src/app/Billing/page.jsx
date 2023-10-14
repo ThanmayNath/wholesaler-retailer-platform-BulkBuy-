@@ -4,6 +4,7 @@ import axios from "axios";
 import "./billing.css";
 import BillingLoading from "@src/components/BillingLoading/billing";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const Billing = () => {
   const router = useRouter();
@@ -20,7 +21,15 @@ const Billing = () => {
     const fetchBillingDetails = async () => {
       try {
         const id = localStorage.getItem("userId");
-        const res = await axios.post(`http://localhost:8800/cart/proced/${id}`);
+        const token = Cookies.get("token");
+        console.log(token);
+        const res = await axios.post(
+          `http://localhost:8800/cart/proced/${id}`,
+          {},
+          {
+            headers: { "x-access-token": token },
+          }
+        );
         console.log(res.data);
         setOrderDetails({
           orderId: res.data.orderId,
@@ -38,7 +47,9 @@ const Billing = () => {
     const fetchAllProducts = async () => {
       try {
         const id = localStorage.getItem("userId");
-        const res = await axios.get(`http://localhost:8800/cart/${id}`);
+        const res = await axios.get(`http://localhost:8000/cart/${id}`, {
+          headers: { "x-access-token": Cookies.get("token") },
+        });
         console.log(res.data);
         setCartItems(res.data);
       } catch (error) {
@@ -109,8 +120,20 @@ const Billing = () => {
           try {
             const paymentId = response.razorpay_payment_id;
             const captureUrl = `${API_URL}capture/${paymentId}`;
-            const captureResponse = await axios.post(captureUrl, {});
+            const captureResponse = await axios.post(captureUrl, {
+              amount: orderDetails.grandTotal,
+              order_id: orderDetails.orderId,
+              retailer_id: localStorage.getItem("userId"),
+            });
             console.log(captureResponse.data);
+            console.log(captureResponse.status);
+            localStorage.setItem("isBillingEffectExecuted", "false");
+            localStorage.removeItem("gst");
+            localStorage.removeItem("grandTotal");
+            router.push("/orderSuccess");
+            // if (captureResponse.data) {
+            //   router.push("/");
+            // }
           } catch (err) {
             console.log(err);
           }
@@ -121,21 +144,21 @@ const Billing = () => {
       };
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
-      try {
-        const res = await axios.put("http://localhost:8800/payment", {
-          order_id: orderDetails.orderId,
-          retailer_id: localStorage.getItem("userId"),
-        });
-        console.log(res);
-        localStorage.setItem("isBillingEffectExecuted", "false");
-        router.push("/");
-        localStorage.removeItem("orderId");
-        localStorage.removeItem("gst");
-        localStorage.removeItem("grandTotal");
-        router.push("/");
-      } catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   const res = await axios.put("http://localhost:8800/payment", {
+      //     order_id: orderDetails.orderId,
+      //     retailer_id: localStorage.getItem("userId"),
+      //   });
+      //   console.log(res);
+      //   localStorage.setItem("isBillingEffectExecuted", "false");
+      //   router.push("/");
+      //   localStorage.removeItem("orderId");
+      //   localStorage.removeItem("gst");
+      //   localStorage.removeItem("grandTotal");
+      //   router.push("/");
+      // } catch (error) {
+      //   console.log(error);
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -165,10 +188,7 @@ const Billing = () => {
                   <p className="buyer_name">
                     {localStorage.getItem("userName")}
                   </p>
-                  <p className="address">
-                    Address: subash Palley, lankapara rd , Jalpaiguri, West
-                    Bengal, 725204
-                  </p>
+                  <p className="address">{localStorage.getItem("address")}</p>
                   {/* <div className="billing_date">Order Date: {currentDate}</div> */}
                 </div>
               </div>

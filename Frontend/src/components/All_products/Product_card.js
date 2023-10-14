@@ -6,6 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import Product_data from "@src/utils/Product_data";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const Product_card = () => {
   const [Products, setProducts] = useState([]);
@@ -20,7 +21,9 @@ const Product_card = () => {
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/products");
+        const res = await axios.get("http://localhost:8000/products", {
+          headers: { "x-access-token": Cookies.get("token") },
+        });
         console.log(res.data);
         setProducts(res.data);
       } catch (error) {
@@ -91,16 +94,24 @@ const Product_card = () => {
   };
 
   const productadded = async (quantity, product_id) => {
-    console.log("Selected Product Quantity:", quantity);
-    console.log("Selected Product ID:", product_id);
+    // console.log("Selected Product Quantity:", quantity);
+    // console.log("Selected Product ID:", product_id);
     const retailer_id = localStorage.getItem("userId");
-
+    const token = Cookies.get("token");
+    console.log(token);
     try {
-      const res = await axios.post("http://localhost:8800/cart/add", {
-        retailer_id,
-        quantity,
-        product_id,
-      });
+      const res = await axios.post(
+        "http://localhost:8000/cart/add",
+        {
+          retailer_id,
+          quantity,
+          product_id,
+        },
+        {
+          headers: { "x-access-token": token },
+        }
+      );
+
       if (res.status === 200) {
         console.log(res.data.message);
         toast.success(res.data.message, {

@@ -1,0 +1,264 @@
+.order_activitymain {
+  height: 91vh;
+  background-color: #ffffff;
+}
+.activity_tab {
+  display: flex;
+  justify-content: center;
+  padding-top: 35px;
+  transition: 0.3s all ease;
+}
+.activity_button {
+  position: relative;
+}
+
+.activity_button button {
+  padding: 10px 80px;
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0px 10px;
+  position: relative;
+}
+
+.activity_tab .active {
+  border-bottom: 7.5px solid rgb(20, 42, 235);
+  border-radius: 3px;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+}
+.activity_card {
+  height: 520px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_div {
+  height: 510px;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  gap: 1px;
+}
+.card {
+  height: 200px;
+  width: 45%;
+  margin: 10px;
+  padding: 15px;
+  background-color: #4d25e0;
+  border-radius: 15px;
+  color: white;
+}
+.upper_order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0px;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0px 12px;
+}
+.lower_order {
+  height: 90%;
+  width: 100%;
+  display: flex;
+}
+.order_details {
+  height: 100%;
+  width: 70%;
+}
+.retailer_name {
+  font-size: 18px;
+  font-weight: 600;
+}
+.order_details > .deliver_to {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+.order_status {
+  color: rgb(40, 40, 40);
+  width: 30%;
+}
+.order_status > .order_pending {
+  text-align: center;
+  color: white;
+}
+
+.order_success {
+  margin-left: 50px;
+}
+.veri {
+  color: #ffffff;
+}
+/* toggle css  */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 34px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(255, 107, 107);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #ffffff;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ffffff;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(85px);
+}
+
+/* /------ ADDED CSS ---------/ */
+.slider:after {
+  content: "PENDING";
+  color: rgb(0, 0, 0);
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 10px;
+  font-family: Verdana, sans-serif;
+}
+
+input:checked + .slider:after {
+  content: "DELIVERED";
+  color: rgb(0, 0, 0);
+}
+
+/* //order comfirm model  */
+.order_comfirm {
+  height: 84vh;
+  width: 97%;
+  position: absolute;
+  top: 9%;
+  left: 0%;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order_comfirm_card {
+  width: 55%;
+  height: 40%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.order_comfirm_card > h2 {
+  font-size: 30px;
+  text-align: center;
+}
+.comfirm_buttons {
+  margin-top: 50px;
+}
+.order_comfirm_card > .comfirm_buttons .yes_button {
+  padding: 12px 60px;
+  margin-right: 80px;
+  border: none;
+  background-color: #4d25e0;
+  color: white;
+  font-size: 19px;
+  border-radius: 7px;
+  text-transform: uppercase;
+}
+.order_comfirm_card > .comfirm_buttons .no_button {
+  padding: 12px 60px;
+  border: none;
+  background-color: #f43434;
+  color: white;
+  font-size: 19px;
+  border-radius: 7px;
+  text-transform: uppercase;
+}
+
+/* complete button  */
+.button {
+  position: relative;
+  overflow: hidden;
+  height: 3rem;
+  padding: 0 2rem;
+  border-radius: 1.5rem;
+  background: #3d3a4e;
+  background-size: 400%;
+  color: #fff;
+  border: none;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button-content {
+  position: relative;
+  z-index: 1;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgba(150, 93, 233, 1) 10.8%,
+    rgba(99, 88, 238, 1) 94.3%
+  );
+  transition: all 0.475s;
+}

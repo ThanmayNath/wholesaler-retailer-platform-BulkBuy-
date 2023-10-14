@@ -22,7 +22,7 @@
   overflow: hidden;
   animation: in_img 0.6s ease;
 }
-.login_form{
+.login_form {
   height: 500px;
   width: 600px;
   position: absolute;
@@ -34,6 +34,7 @@
   font-size: 35px;
   color: #110dbc;
   position: relative;
+  margin-left: 200px;
 }
 .login_header::before {
   height: 4px;
@@ -73,15 +74,17 @@
   width: 100%;
   padding: 10px 9px;
   display: block;
-  border: none;
+  /* border-block: 21px; */
+  /* border: 2px; */
+  border-color: #000000;
   outline: none;
-  background-color: #00A4FF;
+  background-color: #fff;
   border-radius: 5px;
   font-size: 15px;
   font-family: inherit;
   margin-top: 10px;
 }
-.login_button{
+.login_button {
   padding: 13px 20px;
   margin: 22px -9px 23px 69px;
   background-color: #446dff;
@@ -105,7 +108,7 @@
   text-decoration: none;
   color: #000000;
 }
-.sign_up_here a:hover{
+.sign_up_here a:hover {
   color: blue;
 }
 .sign_up_here a::before {
@@ -121,14 +124,13 @@
 }
 .sign_up_here a:hover::before {
   width: 13%;
-
 }
 
 @keyframes in_img {
-  0%{
+  0% {
     transform: translateX(80px);
   }
-  100%{
-   transform: translateX(0px);
+  100% {
+    transform: translateX(0px);
   }
 }

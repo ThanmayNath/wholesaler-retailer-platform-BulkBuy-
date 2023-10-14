@@ -42,7 +42,7 @@ const Footer = () => {
             <h4>Shop By Category</h4>
             <ul>
               <li>
-                <Link href="/category/electronics">Electronics</Link>
+                <Link href="/lkmv">Electronics</Link>
               </li>
               <li>
                 <Link href="/category/home-appliance">Home Appliance</Link>
