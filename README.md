@@ -4,7 +4,7 @@ Bulk-Buy is a web application tailored to streamline trade operations between wh
 
 ## Features
 
-- **Dual-Interface System**: Bulk-Buy features a dual-interface system designed to meet the distinct requirements of both wholesalers and retailers. Wholesalers have access to a platform to list their products, while retailers can easily navigate through these listings and make bulk purchases.
+- **Dual-Interface System**: Bulk-Buyq features a dual-interface system designed to meet the distinct requirements of both wholesalers and retailers. Wholesalers have access to a platform to list their products, while retailers can easily navigate through these listings and make bulk purchases.
 
 - **Wholesaler Product Showcase**: The platform empowers wholesalers to display their products effectively. They can provide detailed information, images, and pricing for their offerings, enhancing visibility and attracting potential buyers.
 
